@@ -5,12 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class='pokename'>{{PokeInfo['forms'][0]['name']}}</h1>
-    <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{PokedexNum}}.png">
 
-    {% if PokeInfo['forms'][0]['name'] == "pikachu" %}
-        <h2>nice</h2>
-    {% endif %}
+    <h1>PokéInfo</h1>
+
+    <form action="{{ url_for('getNewPokemon')}}" method = "POST" >
+        <input type="text" name="newName" placeholder="pikachu">
+        <input type="submit">
+    </form>
+
+    <h2 class='pokename'>{{PokeInfo['forms'][0]['name']}}</h2>
+    <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{PokedexNum}}.png">
 
     <h3>Type(s)</h3>
     <div class="poketypes">
@@ -19,6 +23,34 @@
                 <p class="grass-type">{{item['type']['name']}}</p>
             {% elif item['type']['name'] == "water" %}
                 <p class="water-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "fire" %}
+                <p class="fire-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "bug" %}
+                <p class="bug-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "poison" %}
+                <p class="poison-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "electric" %}
+                <p class="electric-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "dragon" %}
+                <p class="dragon-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "fighting" %}
+                <p class="fight-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "ground" %}
+                <p class="ground-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "flying" %}
+                <p class="flying-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "steel" %}
+                <p class="steel-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "fairy" %}
+                <p class="fairy-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "psychic" %}
+                <p class="psychic-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "ghost" %}
+                <p class="ghost-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "dark" %}
+                <p class="dark-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "rock" %}
+                <p class="rock-type">{{item['type']['name']}}</p>
             {% else %}
                 <p>{{item['type']['name']}}</p>
             {% endif %}
@@ -35,7 +67,7 @@
     <h3>Stats</h3>
     <div class="pokestats">
         {% for item in PokeInfo['stats'] %}
-            <p>{{item['stat']['name']}} : {{item['base_stat']}}</p>
+            <p class="stat-title">{{item['stat']['name']}} : {{item['base_stat']}}</p>
         {% endfor %}
     </div>
 
