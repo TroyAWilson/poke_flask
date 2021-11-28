@@ -1,0 +1,36 @@
+body{
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+}
+
+p{
+    margin:0;
+    padding:5px;
+}
+
+.pokename{
+    text-transform: capitalize;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.pokeimage{
+    width: 250px;
+}
+
+.pokeabilities, .pokestats, .poketypes{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 100%;
+    margin:0 10%;
+}
+
+
+.grass-type{
+    background-color: lightgreen;
+}
+
+.water-type{
+    background-color: lightblue;
+}

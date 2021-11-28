@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <h1 class='pokename'>{{PokeInfo['forms'][0]['name']}}</h1>
+    <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{PokedexNum}}.png">
+
+    {% if PokeInfo['forms'][0]['name'] == "pikachu" %}
+        <h2>nice</h2>
+    {% endif %}
+
+    <h3>Type(s)</h3>
+    <div class="poketypes">
+        {% for item in PokeInfo['types'] %}
+            {% if item['type']['name'] == "grass" %}
+                <p class="grass-type">{{item['type']['name']}}</p>
+            {% elif item['type']['name'] == "water" %}
+                <p class="water-type">{{item['type']['name']}}</p>
+            {% else %}
+                <p>{{item['type']['name']}}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <h3>Abilities</h3>
+    <div class="pokeabilities">
+        {% for item in PokeInfo['abilities'] %}
+            <p>{{item['ability']['name']}}</p>
+        {% endfor %}
+    </div>
+
+    <h3>Stats</h3>
+    <div class="pokestats">
+        {% for item in PokeInfo['stats'] %}
+            <p>{{item['stat']['name']}} : {{item['base_stat']}}</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
