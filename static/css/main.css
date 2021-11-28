@@ -26,6 +26,10 @@ p{
     margin:0 10%;
 }
 
+.stat-title{
+    text-transform: uppercase;
+}
+
 
 .grass-type{
     background-color: lightgreen;
@@ -33,4 +37,60 @@ p{
 
 .water-type{
     background-color: lightblue;
+}
+
+.fire-type{
+    background-color: lightcoral;
+}
+
+.bug-type{
+    background-color: greenyellow;
+}
+
+.poison-type{
+    background-color: lavender;
+}
+
+.steel-type{
+    background-color: grey;
+}
+
+.dragon-type{
+    background-color: purple;
+}
+
+.fight-type{
+    background-color: burlywood;
+}
+
+.fairy-type{
+    background-color: pink;
+}
+
+.electric-type{
+    background-color: yellow;
+}
+
+.ground-type{
+    background-color: brown;
+}
+
+.flying-type{
+    background-color: skyblue;
+}
+
+.psychic-type{
+    background-color: slateblue;
+}
+
+.ghost-type{
+    background-color: plum;
+}
+
+.dark-type{
+    background-color: darkslategray;
+}
+
+.rock-type{
+    background-color: burlywood;
 }
