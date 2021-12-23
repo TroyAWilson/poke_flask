@@ -4,8 +4,13 @@ body{
 }
 
 p{
+    text-transform: capitalize;
     margin:0;
     padding:5px;
+}
+
+.capitalize{
+    text-transform: capitalize;
 }
 
 .pokename{
@@ -18,7 +23,7 @@ p{
     width: 250px;
 }
 
-.pokeabilities, .pokestats, .poketypes{
+.pokestats, .poketypes{
     display:flex;
     flex-direction: column;
     justify-content: space-between;
@@ -26,71 +31,123 @@ p{
     margin:0 10%;
 }
 
+.pokeabilities{
+    display:flex;
+    flex-direction: column;
+}
+
 .stat-title{
     text-transform: uppercase;
 }
 
+.pokedexsubfield{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    padding:10px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+}
+
+.pokedexDataContainer, .trainingContainer, .breedingContainer{
+    width: 90%;
+    margin: auto;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: #F8F7FF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .grass-type{
-    background-color: lightgreen;
+    background-color: #7c5;
 }
 
 .water-type{
-    background-color: lightblue;
+    background-color: #39f;
 }
 
 .fire-type{
-    background-color: lightcoral;
+    background-color: #f42;
 }
 
 .bug-type{
-    background-color: greenyellow;
+    background-color: #ab2;
 }
 
 .poison-type{
-    background-color: lavender;
+    background-color: #a59;
 }
 
 .steel-type{
-    background-color: grey;
+    background-color: #aab;
 }
 
 .dragon-type{
-    background-color: purple;
+    background-color: #76e;
 }
 
 .fight-type{
-    background-color: burlywood;
+    background-color: #b54;
 }
 
 .fairy-type{
-    background-color: pink;
+    background-color: #e9e;
 }
 
 .electric-type{
-    background-color: yellow;
+    background-color: #fc3;
 }
 
 .ground-type{
-    background-color: brown;
+    background-color: #db5;
 }
 
 .flying-type{
-    background-color: skyblue;
+    background-color: #89f;
 }
 
 .psychic-type{
-    background-color: slateblue;
+    background-color: #f59;
 }
 
 .ghost-type{
-    background-color: plum;
+    background-color: #66b;
 }
 
 .dark-type{
-    background-color: darkslategray;
+    background-color: #754;
 }
 
 .rock-type{
-    background-color: burlywood;
+    background-color: #ba6;
+}
+.normal-type{
+    background-color: #aa9;
 }

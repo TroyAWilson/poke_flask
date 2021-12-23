@@ -11,9 +11,16 @@ def index():
 @app.route('/<name>')
 def pokebyname(name = None):
     pokemonInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon/{name}')
+    pokedexEntry = requests.get(f'https://pokeapi.co/api/v2/pokemon-species/{name}')
     pokemonInfo = pokemonInfo.json()
+    pokedexEntry = pokedexEntry.json()
 
-    return render_template('pokemon.html', PokedexNum = pokemonInfo['id'], PokeInfo = pokemonInfo)
+    # evolution_chain = requests.get(pokedexEntry['evolution_chain']['url'])
+    # evolution_chain = evolution_chain.json()
+
+    print(pokedexEntry['egg_groups'][0]['name'])   
+
+    return render_template('pokemon.html', PokedexNum = pokemonInfo['id'], PokeInfo = pokemonInfo, Pokedex=pokedexEntry)
 
 #get to pokemon page by pokedex number
 @app.route('/<num>')

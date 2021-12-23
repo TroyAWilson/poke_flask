@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block head %}
-
-{% endblock %}
-
 {% block body %}
-<h1>index</h1>
+<h1>PokéInfo</h1>
+<form action="{{ url_for('getNewPokemon')}}" method = "POST" >
+    <input type="text" name="newName" placeholder="pikachu">
+    <input type="submit">
+</form>
 {% endblock %}
