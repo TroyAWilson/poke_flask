@@ -1,3 +1,10 @@
+
+.test0{
+    width:100;
+    height: 100;
+}
+
+
 body{
     font-family: 'Oswald', sans-serif;
     text-align: center;
@@ -9,6 +16,34 @@ p{
     padding:5px;
 }
 
+a{
+    color:black;
+    text-decoration: none;
+}
+
+input:-webkit-autofill {
+    border-style: none;
+}
+
+.pokemonIndexLink{
+    transition-duration: 0.5s;
+    cursor: pointer;
+    text-transform: capitalize;
+    background-color: white;
+    color:black;
+    text-decoration: none;
+    outline: none;
+    border: 1px solid black;
+    display: flex;
+    text-align: center;
+    margin: auto;
+}
+
+.pokemonIndexLink:hover{
+    background-color: black;
+    color:white
+}
+
 .capitalize{
     text-transform: capitalize;
 }
@@ -17,6 +52,21 @@ p{
     text-transform: capitalize;
     text-align: center;
     text-decoration: underline;
+}
+
+.indexpokeimage{
+    width: 100px;
+}
+
+.pokemonContainer{
+    display: inline-block;
+    margin:5px;
+    padding:3px
+}
+
+.pokemonOutterContainer{
+    flex-direction: row;
+    margin:5% 0;
 }
 
 .pokeimage{
