@@ -11,9 +11,8 @@
         <input type="submit">
     </form>
 
-    <h2 class='pokename'>{{PokeInfo['forms'][0]['name']}}</h2>
-    <!-- <p>{{Pokedex['flavor_text_entries'][0]['flavor_text']}}</p> -->
-    <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{PokedexNum}}.png">
+    <h2 class='pokename'>{{Pokemon['forms'][0]['name']}}</h2>
+    <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['id']}}.png">
 
 
 
@@ -22,34 +21,34 @@
     <div class="pokedexDataContainer">
         <div class="pokedexsubfield">
             <p>National Dex #:</p>
-            <p>{{PokedexNum}}</p>
+            <p>{{Pokemon['id']}}</p>
         </div>
 
         <div class="pokedexsubfield">
             <p>Species:</p>
-            <p>{{Pokedex['genera'][7]['genus']}}</p>
+            <p>{{Pokemon['species']}}</p>
         </div>
 
         <div class="pokedexsubfield">
             <p>Height:</p>
-            <p>{{PokeInfo['height']}}</p>
+            <p>{{Pokemon['height']}}</p>
         </div>
 
         <div class="pokedexsubfield">
             <p>Weight:</p>
-            <p>{{PokeInfo['weight']}}</p>
+            <p>{{Pokemon['weight']}}</p>
         </div>
 
         <div class="pokedexsubfield">
             <p>Egg Group:</p>
-            {% for item in Pokedex['egg_groups'] %}
+            {% for item in Pokemon['egg_groups'] %}
                 <p>{{item['name']}}</p>
             {% endfor %}
         </div>
 
         <div class="pokedexsubfield">
             <p>Type(s):</p>
-            {% for item in PokeInfo['types'] %}
+            {% for item in Pokemon['types'] %}
                 <!-- There's probably a better way to do this -->
                 {% if item['type']['name'] == "grass" %}
                     <p class="grass-type">{{item['type']['name']}}</p>
@@ -95,7 +94,7 @@
         <div class="pokedexsubfield">
             <p>Abilities:</p>
             <div class="pokeabilities">
-                {% for item in PokeInfo['abilities'] %}
+                {% for item in Pokemon['abilities'] %}
                     {% if item['is_hidden'] == True %}
                         <p>{{item['ability']['name']}} <span>(H.A.)</span></p>
                     {% else %}
@@ -111,28 +110,28 @@
     <div class = "trainingContainer">
         <div class="pokedexsubfield">
             <p>Catch Rate:</p>
-            <p>{{Pokedex['capture_rate']}}</p>
+            <p>{{Pokemon['capture_rate']}}</p>
         </div>
 
         <div class="pokedexsubfield">
             <p>Base Happiness:</p>
-            <p>{{Pokedex['base_happiness']}}</p>
+            <p>{{Pokemon['base_happiness']}}</p>
         </div>
 
         <div class="pokedexsubfield">
             <p>Base Experience:</p>
-            <p>{{PokeInfo['base_experience']}}</p>
+            <p>{{Pokemon['base_experience']}}</p>
         </div>
 
         <div class="pokedexsubfield">
             <p>Growth Rate:</p>
-            <p>{{Pokedex['growth_rate']['name']}}</p>
+            <p>{{Pokemon['growth_rate']['name']}}</p>
         </div>
     </div>
 
     <h3>Stats</h3>
     <div class="pokestats">
-        {% for item in PokeInfo['stats'] %}
+        {% for item in Pokemon['stats'] %}
             {% if item['base_stat'] < 60 %}
                 <p class="stat-title">{{item['stat']['name']}} : <span style="color:red">{{item['base_stat']}}</span></p>
             {% elif item['base_stat'] < 90 %}
