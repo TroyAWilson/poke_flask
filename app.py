@@ -5,19 +5,12 @@ import random
 
 app = Flask(__name__)
 
-def couldNotFindPokemon():
-    render_template()
-
 def loadRandomPokemonBatch():
     batch = []
-    numsUsed = []
     for p in range(24):
         rand = random.randint(1,898)
-        while(rand in numsUsed):
-            rand = random.randint(1,898)
         singleRandomMon = data[rand]
         batch.append(singleRandomMon)
-        numsUsed.append(rand)
     return batch
 
 @app.route('/')
@@ -40,6 +33,7 @@ def pokebynum(num = None):
     num = int(num)
     for i in data:
         if i['id'] == num:
+            print(i['evolution_chain'])
             return render_template('pokemon.html', Pokemon = i)
     return render_template('error.html')
 
@@ -67,11 +61,49 @@ def getNewPokemonbyNumber(num = None):
 
 def grabEmAll():
     Pokemon=[]
+    evChainList = []
     print('collecting pokemon')
 
     for i in range(1,899):
         pokemonMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon/{i}').json()
         pokemonSpeciesMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon-species/{i}').json()
+        ev_chain = requests.get(pokemonSpeciesMassInfo['evolution_chain']['url']).json()
+
+        evChain = {
+            'smallestMon': None,
+            'smallestMonId': None,
+            'midMon': None,
+            'midMonId': None,
+            'bigMon': None,
+            'bigMonId': None,
+            'altMon': None,
+            'altMonId': None
+
+        }
+
+        if 'name' in ev_chain['chain']['species']:
+            evChain['smallestMon'] = ev_chain['chain']['species']['name']
+            smallurl = ev_chain['chain']['species']['url']
+            getOne = requests.get(smallurl).json()
+            evChain['smallestMonId'] = getOne['id']
+
+        if len(ev_chain['chain']['evolves_to']) > 0:
+            evChain['midMon'] = ev_chain['chain']['evolves_to'][0]['species']['name']
+            midurl = ev_chain['chain']['evolves_to'][0]['species']['url']
+            getOne = requests.get(midurl).json()
+            evChain['midMonId'] = getOne['id']
+        
+            if len(ev_chain['chain']['evolves_to'][0]['evolves_to']) > 0:
+                evChain['bigMon'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
+                bigurl = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['url']
+                getOne = requests.get(bigurl).json()
+                evChain['bigMonId'] = getOne['id']
+        
+                if len(ev_chain['chain']['evolves_to'][0]['evolves_to']) > 1:
+                    evChain['altMon'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['species']['name']
+                    alturl = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['species']['url']
+                    getOne = requests.get(alturl).json()
+                    evChain['altMonId'] = getOne['id']
 
         pokemon = {
             'name': pokemonMassInfo['name'],
@@ -87,7 +119,8 @@ def grabEmAll():
             'catch_rate': pokemonSpeciesMassInfo['capture_rate'],
             'base_happiness': pokemonSpeciesMassInfo['base_happiness'],
             'egg_groups': pokemonSpeciesMassInfo['egg_groups'],
-            'evolution_chain': pokemonSpeciesMassInfo['evolution_chain'],
+            'evolution_chain': evChain,
+            # 'evolution_chain': ev_chain,
             'flavor_text_entries': pokemonSpeciesMassInfo['flavor_text_entries'],
             'growth_rate': pokemonSpeciesMassInfo['growth_rate'],
             'habitat': pokemonSpeciesMassInfo['habitat'],
@@ -99,6 +132,7 @@ def grabEmAll():
 
 
 if __name__ == '__main__':
+    # grabEmAll()
     f = open('pokemon.json')
     data = json.load(f)
     f.close() 

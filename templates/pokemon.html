@@ -84,6 +84,8 @@
                     <p class="rock-type">{{item['type']['name']}}</p>
                 {% elif item['type']['name'] == "normal" %}
                     <p class="normal-type">{{item['type']['name']}}</p>
+                {% elif item['type']['name'] == "ice" %}
+                    <p class="ice-type">{{item['type']['name']}}</p>
                 {% else %}
                     <p>{{item['type']['name']}}</p>
                 {% endif %}
@@ -110,7 +112,7 @@
     <div class = "trainingContainer">
         <div class="pokedexsubfield">
             <p>Catch Rate:</p>
-            <p>{{Pokemon['capture_rate']}}</p>
+            <p>{{Pokemon['catch_rate']}}</p>
         </div>
 
         <div class="pokedexsubfield">
@@ -144,6 +146,41 @@
         {% endfor %}
     </div>
 
-    <h3>Evolution</h3>
+    <h3>Evolution Line</h3>
+    <div class = 'evolutionContainer'>
+        {% if Pokemon['evolution_chain']['smallestMon'] != None %}
+            <div>
+                <img class='evolutionImage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['smallestMonId']}}.png">
+                <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+                    <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{Pokemon['evolution_chain']['smallestMonId']}}"> {{Pokemon['evolution_chain']['smallestMon']}} </button>
+                </form>
+            </div>
+        {% endif %}
 
+        {% if Pokemon['evolution_chain']['midMon'] != None %}
+            <div>
+                <img class='evolutionImage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['midMonId']}}.png">
+                <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+                    <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{Pokemon['evolution_chain']['midMonId']}}"> {{Pokemon['evolution_chain']['midMon']}} </button>
+                </form>            </div>
+        {% endif %}
+
+        {% if Pokemon['evolution_chain']['bigMon'] != None %}
+            <div>
+                <img class='evolutionImage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['bigMonId']}}.png">
+                <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+                    <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{Pokemon['evolution_chain']['bigMonId']}}"> {{Pokemon['evolution_chain']['bigMon']}} </button>
+                </form>            
+            </div>
+        {% endif %}
+
+        {% if Pokemon['evolution_chain']['altMon'] != None %}
+            <div>
+                <img class='evolutionImage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['altMonId']}}.png">
+                <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+                    <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{Pokemon['evolution_chain']['altMonId']}}"> {{Pokemon['evolution_chain']['altMon']}} </button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

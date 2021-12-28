@@ -73,6 +73,10 @@ input:-webkit-autofill {
     width: 250px;
 }
 
+.evolutionImage{
+    width: 100px;
+}
+
 .pokestats, .poketypes{
     display:flex;
     flex-direction: column;
@@ -107,6 +111,11 @@ input:-webkit-autofill {
     background-color: #F8F7FF;
 }
 
+.evolutionContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
 
 
 
@@ -133,7 +142,9 @@ input:-webkit-autofill {
 
 
 
-
+.ice-type{
+    background-color: #6cf;
+}
 
 .grass-type{
     background-color: #7c5;
