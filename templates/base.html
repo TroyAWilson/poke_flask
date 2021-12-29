@@ -8,10 +8,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/images/pokemon_egg.ico') }}">
     {% block head %}{% endblock %}
 </head>
 <body>
+    <a href="{{ url_for('index')}}">
+        <h1 class = "pokeTitle">PokéInfo</h1>
+    </a>
+    <form action="{{ url_for('getNewPokemon')}}" method = "POST" >
+        <div>
+            <input type="text" name="newName" placeholder="pikachu">
+            <input type="submit">
+        </div>
+    </form>
     {% block body %}
+   
     {% endblock %}
 </body>
 </html>
