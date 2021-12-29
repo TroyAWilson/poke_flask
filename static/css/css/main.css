@@ -4,7 +4,6 @@
     height: 100;
 }
 
-
 body{
     font-family: 'Oswald', sans-serif;
     text-align: center;
@@ -21,9 +20,15 @@ a{
     text-decoration: none;
 }
 
+title{
+    text-transform: capitalize;
+}
+
 input:-webkit-autofill {
     border-style: none;
 }
+
+
 
 .pokemonIndexLink{
     transition-duration: 0.5s;

@@ -7,8 +7,9 @@ app = Flask(__name__)
 
 def loadRandomPokemonBatch():
     batch = []
+    print(len(data))
     for p in range(24):
-        rand = random.randint(1,898)
+        rand = random.randint(0,897)
         singleRandomMon = data[rand]
         batch.append(singleRandomMon)
     return batch
@@ -16,6 +17,8 @@ def loadRandomPokemonBatch():
 @app.route('/')
 def index():
     batch = loadRandomPokemonBatch()
+    for i in batch:
+        print(i['name'])
     return render_template('index.html', batch=batch)
 
 #gets to pokemon page by pokemon name
