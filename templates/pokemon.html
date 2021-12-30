@@ -2,11 +2,13 @@
 
 
 {% block head %} 
-    <title>{{Pokemon['forms'][0]['name'].capitalize()}}</title> 
+    <title>{{Pokemon['forms'][0]['name'].capitalize()}} Pokédex Entery</title> 
 {% endblock %}
 
 
 {% block body %}
+
+    <!-- At some point add in a 'move to next numerical pokemon button and 'move to previous numerical pokemon button' -->
 
     <h2 class='pokename'>{{Pokemon['forms'][0]['name']}}</h2>
     <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['id']}}.png">
@@ -155,11 +157,13 @@
         {% endif %}
 
         {% if Pokemon['evolution_chain']['midMon'] != None %}
+            <p>*arrow*</p>
             <div>
                 <img class='evolutionImage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['midMonId']}}.png">
                 <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
                     <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{Pokemon['evolution_chain']['midMonId']}}"> {{Pokemon['evolution_chain']['midMon']}} </button>
-                </form>            </div>
+                </form>
+            </div>
         {% endif %}
 
         {% if Pokemon['evolution_chain']['bigMon'] != None %}
@@ -180,4 +184,74 @@
             </div>
         {% endif %}
     </div>
+
+
+
+
+    <h3>Moves</h3>
+    <!-- egg, machine-->
+    
+    <h4>Level Up Moves</h4>
+        <div class = 'singleLevelUpMoveContainer'>
+            <p>lvl.</p>
+            <p>Move</p>
+            <p>Type</p>
+            <p>Cat.</p>
+            <p>Power</p>
+            <p>PP</p>
+        </div>
+        {% for item in Pokemon['moves'] %}
+            {% if item['move_learn_method'] == 'level-up' %}
+                <div class = 'singleLevelUpMoveContainer'>
+                    <p> {{item['level_learned_at']}}</p>
+                    <p> {{item['name']}} </p>
+                    <p> {{item['type']}} </p>
+                    <p> {{item['damage_class']}} </p>
+                    <p> {{item['power']}} </p>
+                    <p> {{item['pp']}} </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    <h4>Egg Moves</h4>
+    <div class = 'singleLevelUpMoveContainer'>
+        <p>Move</p>
+        <p>Type</p>
+        <p>Cat.</p>
+        <p>Power</p>
+        <p>PP</p>
+    </div>
+    {% for item in Pokemon['moves'] %}
+        {% if item['move_learn_method'] == 'egg' %}
+            <div class = 'singleLevelUpMoveContainer'>
+                <p> {{item['name']}} </p>
+                <p> {{item['type']}} </p>
+                <p> {{item['damage_class']}} </p>
+                <p> {{item['power']}} </p>
+                <p> {{item['pp']}} </p>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <h4>TM Moves</h4>
+    <div class = 'singleLevelUpMoveContainer'>
+        <!-- Add TM number -->
+        <p>Move</p>
+        <p>Type</p>
+        <p>Cat.</p>
+        <p>Power</p>
+        <p>PP</p>
+    </div>
+    {% for item in Pokemon['moves'] %}
+        {% if item['move_learn_method'] == 'machine' %}
+            <div class = 'singleLevelUpMoveContainer'>
+                <p> {{item['name']}} </p>
+                <p> {{item['type']}} </p>
+                <p> {{item['damage_class']}} </p>
+                <p> {{item['power']}} </p>
+                <p> {{item['pp']}} </p>
+            </div>
+        {% endif %}
+    {% endfor %}
+
 {% endblock %}

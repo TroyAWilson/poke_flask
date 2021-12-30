@@ -7,6 +7,12 @@
 body{
     font-family: 'Oswald', sans-serif;
     text-align: center;
+    margin: 0;
+}
+
+footer{
+    background-color: #d3d3d3;
+    margin-top: 25px;
 }
 
 p{
@@ -121,7 +127,18 @@ input:-webkit-autofill {
     justify-content: center;
     flex-direction: row;
 }
+.singleLevelUpMoveContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    border-bottom: 0.5px solid #d3d3d3;
+}
 
+.singleLevelUpMoveContainer p {
+    width: 100px;
+    margin: 3px;
+}
 
 
 
