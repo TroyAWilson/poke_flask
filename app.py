@@ -1,3 +1,4 @@
+from os import environ
 from flask import Flask, render_template, url_for, request
 import requests
 import json
@@ -7,7 +8,6 @@ app = Flask(__name__)
 
 def loadRandomPokemonBatch():
     batch = []
-    print(len(data))
     for p in range(24):
         rand = random.randint(0,897)
         singleRandomMon = data[rand]
@@ -70,6 +70,7 @@ def grabEmAll():
     for i in range(1,899):
         pokemonMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon/{i}').json()
         pokemonSpeciesMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon-species/{i}').json()
+        print(f"Pokemon ID: {pokemonMassInfo['id']}")
         ev_chain = requests.get(pokemonSpeciesMassInfo['evolution_chain']['url']).json()
         pMoves=[]
         for i in pokemonMassInfo['moves']:
@@ -82,7 +83,8 @@ def grabEmAll():
                 'damage_class': None,
                 'power':None,
                 'pp': None,
-                'type': None
+                'type': None,
+                'accuracy':None
             }
 
             pMove['name'] = i['move']['name']
@@ -92,18 +94,26 @@ def grabEmAll():
             pMove['power'] = moveDetails['power']
             pMove['pp'] = moveDetails['pp']
             pMove['type'] = moveDetails['type']['name']
-
+            pMove['accuracy'] = moveDetails['accuracy']
             
-
             pMoves.append(pMove)
             
         evChain = {
             'smallestMon': None,
             'smallestMonId': None,
+            
+            'smallToMidLevel': None,
+
             'midMon': None,
             'midMonId': None,
+            
+            'midToBigLevel':None,
+
             'bigMon': None,
             'bigMonId': None,
+            
+            'midToAltLevel':None,
+
             'altMon': None,
             'altMonId': None
 
@@ -117,22 +127,33 @@ def grabEmAll():
 
         if len(ev_chain['chain']['evolves_to']) > 0:
             evChain['midMon'] = ev_chain['chain']['evolves_to'][0]['species']['name']
+            
+            if len(ev_chain['chain']['evolves_to'][0]['evolution_details']) > 0:
+                evChain['smallToMidLevel'] = ev_chain['chain']['evolves_to'][0]['evolution_details'][0]['min_level']
+            
             midurl = ev_chain['chain']['evolves_to'][0]['species']['url']
             getOne = requests.get(midurl).json()
             evChain['midMonId'] = getOne['id']
         
             if len(ev_chain['chain']['evolves_to'][0]['evolves_to']) > 0:
                 evChain['bigMon'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
+                
+                if len(ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['evolution_details']) > 0:
+                    evChain['midToBigLevel'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['evolution_details'][0]['min_level']
+                
                 bigurl = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['url']
                 getOne = requests.get(bigurl).json()
                 evChain['bigMonId'] = getOne['id']
         
                 if len(ev_chain['chain']['evolves_to'][0]['evolves_to']) > 1:
                     evChain['altMon'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['species']['name']
+                    
+                    if len(ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['evolution_details']) > 1:
+                        evChain['midToAltLevel'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['evolution_details'][0]['min_level']
+                    
                     alturl = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['species']['url']
                     getOne = requests.get(alturl).json()
                     evChain['altMonId'] = getOne['id']
-
         pokemon = {
             'name': pokemonMassInfo['name'],
             'id':  pokemonMassInfo['id'],

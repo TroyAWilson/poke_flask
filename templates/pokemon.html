@@ -157,7 +157,10 @@
         {% endif %}
 
         {% if Pokemon['evolution_chain']['midMon'] != None %}
-            <p>*arrow*</p>
+            <div style="align-self: center;">
+                <p style="font-size: 30px;">&#8594;</p>
+                <p>lvl. {{Pokemon['evolution_chain']['smallToMidLevel']}}</p>
+            </div>
             <div>
                 <img class='evolutionImage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['midMonId']}}.png">
                 <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
@@ -167,6 +170,10 @@
         {% endif %}
 
         {% if Pokemon['evolution_chain']['bigMon'] != None %}
+            <div style="align-self: center;">
+                <p style="font-size: 30px;">&#8594;</p>
+                <p>lvl. {{Pokemon['evolution_chain']['midToBigLevel']}}</p>
+            </div>    
             <div>
                 <img class='evolutionImage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['bigMonId']}}.png">
                 <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
