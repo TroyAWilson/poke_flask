@@ -63,6 +63,85 @@ def getNewPokemonbyNumber(num = None):
     return "Uh oh, something has gone wrong!"
 
 
+
+
+def setUpEvolutionLines(ev_chain):
+    evChain = {
+            'smallestMon': None,
+            'smallestMonId': None,
+            
+            'midMon': [],
+            
+            'bigMon': [],
+        }
+
+    if 'name' in ev_chain['chain']['species']:
+        evChain['smallestMon'] = ev_chain['chain']['species']['name']
+        smallurl = ev_chain['chain']['species']['url']
+        getOne = requests.get(smallurl).json()
+        evChain['smallestMonId'] = getOne['id']
+
+        for i in ev_chain['chain']['evolves_to']:
+            m = {'name':None, 'id':None, 'level_up_trigger':None, 'level':None, 'item':None, 'happiness':None, 'location': None}
+            midurl = i['species']['url']
+            getOne = requests.get(midurl).json()
+
+            m['name'] = i['species']['name']
+            m['id'] = getOne['id']
+
+            if len(i['evolution_details']) > 0:
+                m['level_up_trigger'] = i['evolution_details'][0]['trigger']['name']
+                
+                m['level'] = i['evolution_details'][0]['min_level']
+                if m['level_up_trigger'] == 'use-item' and i['evolution_details'][0]['item'] != None:
+                    m['item'] = i['evolution_details'][0]['item']['name']
+                m['happiness'] = i['evolution_details'][0]['min_happiness']
+                m['location'] = i['evolution_details'][0]['location']
+
+
+            evChain['midMon'].append(m)
+
+            for j in i['evolves_to']:
+                b = {'name':None, 'id':None, 'level_up_trigger':None, 'level':None, 'item':None, 'happiness':None, 'location': None}
+                bigurl = j['species']['url']
+                getOne = requests.get(bigurl).json()
+
+                b['name'] = j['species']['name']
+                b['id'] = getOne['id']
+
+                if len(j['evolution_details']) > 0:
+                    b['level_up_trigger'] = j['evolution_details'][0]['trigger']['name']
+
+                    b['level'] = j['evolution_details'][0]['min_level']
+                    if b['level_up_trigger'] == 'use-item' and j['evolution_details'][0]['item'] != None:
+                        b['item'] = j['evolution_details'][0]['item']['name']
+                    b['happiness'] = j['evolution_details'][0]['min_happiness']
+                    b['location'] = j['evolution_details'][0]['location']
+
+                evChain['bigMon'].append(b)
+
+
+    return evChain
+
+
+
+def testEmAll():
+    Pokemon=[]
+    print('collecting pokemon')
+
+    for i in range(90,899):
+        pokemonMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon/{i}').json()
+        pokemonSpeciesMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon-species/{i}').json()
+        print(f"Pokemon ID: {pokemonMassInfo['id']}")
+        ev_chain = requests.get(pokemonSpeciesMassInfo['evolution_chain']['url']).json()
+
+        evChain = setUpEvolutionLines(ev_chain)
+
+        print(evChain)
+
+
+
+
 def grabEmAll():
     Pokemon=[]
     print('collecting pokemon')
@@ -72,88 +151,9 @@ def grabEmAll():
         pokemonSpeciesMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon-species/{i}').json()
         print(f"Pokemon ID: {pokemonMassInfo['id']}")
         ev_chain = requests.get(pokemonSpeciesMassInfo['evolution_chain']['url']).json()
-        pMoves=[]
-        for i in pokemonMassInfo['moves']:
-            moveDetails = requests.get(i['move']['url']).json()
+        pMoves= packageMoves(pokemonMassInfo)
+        evChain = setUpEvolutionLines(ev_chain)
 
-            pMove = {
-                'name': None,
-                'level_learned_at': None,
-                'move_learn_method': None,
-                'damage_class': None,
-                'power':None,
-                'pp': None,
-                'type': None,
-                'accuracy':None
-            }
-
-            pMove['name'] = i['move']['name']
-            pMove['level_learned_at'] = i['version_group_details'][len(i['version_group_details'])-1]['level_learned_at']
-            pMove['move_learn_method'] = i['version_group_details'][len(i['version_group_details'])-1]['move_learn_method']['name']
-            pMove['damage_class'] = moveDetails['damage_class']['name']
-            pMove['power'] = moveDetails['power']
-            pMove['pp'] = moveDetails['pp']
-            pMove['type'] = moveDetails['type']['name']
-            pMove['accuracy'] = moveDetails['accuracy']
-            
-            pMoves.append(pMove)
-            
-        evChain = {
-            'smallestMon': None,
-            'smallestMonId': None,
-            
-            'smallToMidLevel': None,
-
-            'midMon': None,
-            'midMonId': None,
-            
-            'midToBigLevel':None,
-
-            'bigMon': None,
-            'bigMonId': None,
-            
-            'midToAltLevel':None,
-
-            'altMon': None,
-            'altMonId': None
-
-        }
-
-        if 'name' in ev_chain['chain']['species']:
-            evChain['smallestMon'] = ev_chain['chain']['species']['name']
-            smallurl = ev_chain['chain']['species']['url']
-            getOne = requests.get(smallurl).json()
-            evChain['smallestMonId'] = getOne['id']
-
-        if len(ev_chain['chain']['evolves_to']) > 0:
-            evChain['midMon'] = ev_chain['chain']['evolves_to'][0]['species']['name']
-            
-            if len(ev_chain['chain']['evolves_to'][0]['evolution_details']) > 0:
-                evChain['smallToMidLevel'] = ev_chain['chain']['evolves_to'][0]['evolution_details'][0]['min_level']
-            
-            midurl = ev_chain['chain']['evolves_to'][0]['species']['url']
-            getOne = requests.get(midurl).json()
-            evChain['midMonId'] = getOne['id']
-        
-            if len(ev_chain['chain']['evolves_to'][0]['evolves_to']) > 0:
-                evChain['bigMon'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
-                
-                if len(ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['evolution_details']) > 0:
-                    evChain['midToBigLevel'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['evolution_details'][0]['min_level']
-                
-                bigurl = ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['species']['url']
-                getOne = requests.get(bigurl).json()
-                evChain['bigMonId'] = getOne['id']
-        
-                if len(ev_chain['chain']['evolves_to'][0]['evolves_to']) > 1:
-                    evChain['altMon'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['species']['name']
-                    
-                    if len(ev_chain['chain']['evolves_to'][0]['evolves_to'][0]['evolution_details']) > 1:
-                        evChain['midToAltLevel'] = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['evolution_details'][0]['min_level']
-                    
-                    alturl = ev_chain['chain']['evolves_to'][0]['evolves_to'][1]['species']['url']
-                    getOne = requests.get(alturl).json()
-                    evChain['altMonId'] = getOne['id']
         pokemon = {
             'name': pokemonMassInfo['name'],
             'id':  pokemonMassInfo['id'],
@@ -177,16 +177,87 @@ def grabEmAll():
 
             'moves': pMoves
         }
+
         Pokemon.append(pokemon)
 
     with open('pokemon.json', 'w') as file: file.write(json.dumps(Pokemon))  
 
 
+
+
+
+
+def gatherMoves():
+    moves = {}
+    for i in range(1,826):
+        print(i)
+        r = requests.get(f'https://pokeapi.co/api/v2/move/{i}').json()
+        
+        moves[r['name']] = {
+            'name': r['name'],
+            'accuracy': r['accuracy'],
+            'damage_class': r['damage_class']['name'],
+            'power': r['power'],
+            'pp': r['pp'],
+            'type': r['type']['name']
+        }
+    
+    with open('moves.json', 'w') as file: file.write(json.dumps(moves))  
+
+
+
+def packageMoves(pokemon):
+    m = open('moves.json')
+    movesData = json.load(m)
+    m.close()
+
+    pMoves = []
+
+    for i in pokemon['moves']:
+        pMove = {
+            'name': None,
+            'level_learned_at': None,
+            'move_learn_method': None,
+            'damage_class': None,
+            'power':None,
+            'pp': None,
+            'type': None,
+            'accuracy':None
+        }
+
+        pMove['name'] = i['move']['name']
+        pMove['level_learned_at'] = i['version_group_details'][len(i['version_group_details'])-1]['level_learned_at']
+        pMove['move_learn_method'] = i['version_group_details'][len(i['version_group_details'])-1]['move_learn_method']['name']
+        pMove['damage_class'] = movesData[pMove['name']]['damage_class']
+        pMove['power'] = movesData[pMove['name']]['power']
+        pMove['pp'] = movesData[pMove['name']]['pp']
+        pMove['type'] = movesData[pMove['name']]['type']
+        pMove['accuracy'] = movesData[pMove['name']]['accuracy']
+
+        pMoves.append(pMove)
+
+    return pMoves
+
+
+def test():
+    p = requests.get(f'https://pokeapi.co/api/v2/pokemon/25').json()
+
+    y = packageMoves(p)
+
+    print(y)
+
+
+
 if __name__ == '__main__':
     print('starting PokeInfo')
-    # grabEmAll()
+    grabEmAll()
+    # testEmAll()
+
+    test()
+
     f = open('pokemon.json')
     print('loading json file')
     data = json.load(f)
     f.close() 
+    
     app.run()
