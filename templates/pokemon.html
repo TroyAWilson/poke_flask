@@ -12,14 +12,14 @@
 
     <div class = 'next-prev-container'>
         <div class="next-prev">
-            <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
-                <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{prevMon['id']}}"> &#8592 #{{prevMon['id']}} {{prevMon['name']}} </button>
-            </form>
+            <a href="/pokemon/{{prevMon['id']}}">
+                <p> &#8592 #{{prevMon['id']}} {{prevMon['name']}} </p>
+            </a>
         </div>
         <div class="next-prev">
-            <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
-                <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{nextMon['id']}}"> {{nextMon['name']}} #{{nextMon['id']}} &#8594</button>
-            </form>
+            <a href="/pokemon/{{nextMon['id']}}">
+                <p> {{nextMon['name']}} #{{nextMon['id']}} &#8594 </p>
+            </a>
         </div>
     </div>
 
@@ -61,46 +61,7 @@
         <div class="pokedexsubfield">
             <p>Type(s):</p>
             {% for item in Pokemon['types'] %}
-                <!-- There's probably a better way to do this -->
-                {% if item['type']['name'] == "grass" %}
-                    <p class="grass-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "water" %}
-                    <p class="water-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "fire" %}
-                    <p class="fire-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "bug" %}
-                    <p class="bug-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "poison" %}
-                    <p class="poison-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "electric" %}
-                    <p class="electric-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "dragon" %}
-                    <p class="dragon-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "fighting" %}
-                    <p class="fight-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "ground" %}
-                    <p class="ground-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "flying" %}
-                    <p class="flying-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "steel" %}
-                    <p class="steel-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "fairy" %}
-                    <p class="fairy-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "psychic" %}
-                    <p class="psychic-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "ghost" %}
-                    <p class="ghost-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "dark" %}
-                    <p class="dark-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "rock" %}
-                    <p class="rock-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "normal" %}
-                    <p class="normal-type">{{item['type']['name']}}</p>
-                {% elif item['type']['name'] == "ice" %}
-                    <p class="ice-type">{{item['type']['name']}}</p>
-                {% else %}
-                    <p>{{item['type']['name']}}</p>
-                {% endif %}
+                <p class = "{{item['type']['name']}}-type">{{item['type']['name']}}</p>
             {% endfor %}
         </div>
 
@@ -162,10 +123,15 @@
     <div class = 'evolutionContainer'>
         
         <div style="margin: auto 0;">
-            <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+            <!-- <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['smallestMonId']}}.png" alt="">
                 <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{Pokemon['evolution_chain']['smallestMonId']}}"> {{Pokemon['evolution_chain']['smallestMon']}} </button>
-            </form>  
+            </form>   -->
+
+            <a href="/pokemon/{{Pokemon['evolution_chain']['smallestMonId']}}">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['smallestMonId']}}.png" alt="">
+                <p>{{Pokemon['evolution_chain']['smallestMon']}}</p>
+            </a>
         </div>
 
         <div style="margin: auto 0;">
@@ -207,10 +173,10 @@
                     </div>
 
                     <div>
-                        <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+                        <a href="/pokemon/{{item['id']}}">
                             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item['id']}}.png" alt="">
-                            <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{item['id']}}"> {{item['name']}} </button>
-                        </form>
+                            <p>{{item['name']}}</p>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
@@ -255,10 +221,10 @@
                     </div>
 
                     <div>
-                        <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+                        <a href="/pokemon/{{item['id']}}">
                             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item['id']}}.png" alt="">
-                            <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{item['id']}}"> {{item['name']}} </button>
-                        </form>
+                            <p>{{item['name']}}</p>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
@@ -285,8 +251,10 @@
             {% if item['move_learn_method'] == 'level-up' %}
                 <div class = 'singleLevelUpMoveContainer'>
                     <p> {{item['level_learned_at']}}</p>
-                    <p> {{item['name']}} </p>
-                    <p> {{item['type']}} </p>
+                    <a href="/move/{{item['name']}}">
+                        <p> {{item['name']}} </p>
+                    </a>
+                    <p class="{{item['type']}}-type"> {{item['type']}} </p>
                     <p> {{item['damage_class']}} </p>
                     <p> {{item['power']}} </p>
                     <p> {{item['pp']}} </p>
@@ -305,8 +273,10 @@
     {% for item in Pokemon['moves'] %}
         {% if item['move_learn_method'] == 'egg' %}
             <div class = 'singleLevelUpMoveContainer'>
-                <p> {{item['name']}} </p>
-                <p> {{item['type']}} </p>
+                <a href="/move/{{item['name']}}">
+                    <p> {{item['name']}} </p>
+                </a>                
+                <p class="{{item['type']}}-type"> {{item['type']}} </p>
                 <p> {{item['damage_class']}} </p>
                 <p> {{item['power']}} </p>
                 <p> {{item['pp']}} </p>
@@ -326,8 +296,10 @@
     {% for item in Pokemon['moves'] %}
         {% if item['move_learn_method'] == 'machine' %}
             <div class = 'singleLevelUpMoveContainer'>
-                <p> {{item['name']}} </p>
-                <p> {{item['type']}} </p>
+                <a href="/move/{{item['name']}}">
+                    <p> {{item['name']}} </p>
+                </a>                
+                <p class="{{item['type']}}-type"> {{item['type']}} </p>
                 <p> {{item['damage_class']}} </p>
                 <p> {{item['power']}} </p>
                 <p> {{item['pp']}} </p>
