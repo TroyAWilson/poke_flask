@@ -180,6 +180,10 @@
                                 <p>lvl up at {{item['location']['name']}}</p>
                             {% elif item['happiness'] != None %}
                                 <p>High Happiness</p>
+                            {% elif item['affection'] != None %}
+                                <p>High Affection</p>
+                            {% elif item['beauty'] != None %}
+                                <p>High Beauty</p>
                             {% else%}
                                 <p>lvl. {{item['level']}}</p>
                             {% endif %}
@@ -192,7 +196,13 @@
                             {% endif %}
                         <!-- TRADE CHECK -->
                         {% elif item['level_up_trigger'] == 'trade' %}
-                            <p>Trade w/ {trade species}</p>
+                            {% if item['trade_species'] != None %}
+                                <p>Trade w/ {{item['trade_species']['name']}}</p>
+                            {% elif item['held_item'] != None %}
+                                <p>Trade holding {{item['held_item']}}</p>
+                            {% else %}
+                                <p>Trade</p>
+                            {% endif %}
                         {% endif %}
                     </div>
 
@@ -206,13 +216,53 @@
             {% endfor %}
         </div>
 
-        {% for item in Pokemon['evolution_chain']['bigMon'] %}
-            <p>&#8594;</p>
-            <div>    
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item['id']}}.png" alt="">
-                <p>{{item['name']}}</p>
-            </div>
-        {% endfor %}
+        <div style="margin: auto 0;">
+            {% for item in Pokemon['evolution_chain']['bigMon'] %}
+                <div class='pokemon-evolution'>
+                    
+                    <div class='pokemon-evolution-arrow-and-level'>    
+                        <p> &#8594;</p>
+                        <!-- LEVEL UP CHECK -->
+                        {% if item['level_up_trigger'] == 'level-up' %}
+                            {% if item['location'] != None %}
+                                <p>lvl up at {{item['location']['name']}}</p>
+                            {% elif item['happiness'] != None %}
+                                <p>High Happiness</p>
+                            {% elif item['affection'] != None %}
+                                <p>High Affection</p>
+                            {% elif item['beauty'] != None %}
+                                <p>High Beauty</p>
+                            {% else%}
+                                <p>lvl. {{item['level']}}</p>
+                            {% endif %}
+                        <!-- ITEM CHECK -->
+                        {% elif item['level_up_trigger'] == 'use-item' %}
+                            {% if item['item'] == None %}
+                                <p>Use Item</p>
+                            {% else%}
+                                <p>{{item['item']}}</p>
+                            {% endif %}
+                        <!-- TRADE CHECK -->
+                        {% elif item['level_up_trigger'] == 'trade' %}
+                            {% if item['trade_species'] != None %}
+                                <p>Trade w/ {{item['trade_species']['name']}}</p>
+                            {% elif item['held_item'] != None %}
+                                <p>Trade holding {{item['held_item']}}</p>
+                            {% else %}
+                                <p>Trade</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item['id']}}.png" alt="">
+                            <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{item['id']}}"> {{item['name']}} </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
     </div>
 

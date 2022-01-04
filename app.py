@@ -126,13 +126,13 @@ def setUpEvolutionLines(ev_chain):
                 'level':None, 
                 'item':None, 
                 'happiness':None, 
-                'location': None
-                # Add time_of_day - triggered by level up
-                # Add affection - triggered by level up
-                # Add trade_species['name'] - triggered by trade
-                # Add beauty - triggered by level up
-                # Add Held Item -triggered by trade and maybe level up
-                    #gligar requires holding an item and to level up at night
+                'location': None,
+                
+                'time_of_day': None,
+                'affection': None,
+                'trade_species': None,
+                'beauty': None,
+                'held_item': None
             }
 
             midurl = i['species']['url']
@@ -150,11 +150,31 @@ def setUpEvolutionLines(ev_chain):
                 m['happiness'] = i['evolution_details'][0]['min_happiness']
                 m['location'] = i['evolution_details'][0]['location']
 
+                m['time_of_day'] = i['evolution_details'][0]['time_of_day']
+                m['affection'] = i['evolution_details'][0]['min_affection']
+                if i['evolution_details'][0]['held_item'] != None:
+                    m['held_item'] = i['evolution_details'][0]['held_item']['name']
+                m['trade_species'] = i['evolution_details'][0]['trade_species']
+                m['beauty'] = i['evolution_details'][0]['min_beauty']
 
             evChain['midMon'].append(m)
 
             for j in i['evolves_to']:
-                b = {'name':None, 'id':None, 'level_up_trigger':None, 'level':None, 'item':None, 'happiness':None, 'location': None}
+                b = {
+                    'name':None,
+                    'id':None,
+                    'level_up_trigger':None,
+                    'level':None, 
+                    'item':None, 
+                    'happiness':None, 
+                    'location': None,
+                    
+                    'time_of_day': None,
+                    'affection': None,
+                    'trade_species': None,
+                    'beauty': None,
+                    'held_item': None
+                }                
                 bigurl = j['species']['url']
                 getOne = requests.get(bigurl).json()
 
@@ -169,6 +189,13 @@ def setUpEvolutionLines(ev_chain):
                         b['item'] = j['evolution_details'][0]['item']['name']
                     b['happiness'] = j['evolution_details'][0]['min_happiness']
                     b['location'] = j['evolution_details'][0]['location']
+
+                    b['time_of_day'] = j['evolution_details'][0]['time_of_day']
+                    b['affection'] = j['evolution_details'][0]['min_affection']
+                    if j['evolution_details'][0]['held_item'] != None:
+                        b['held_item'] = j['evolution_details'][0]['held_item']['name']
+                    b['trade_species'] = j['evolution_details'][0]['trade_species']
+                    b['beauty'] = j['evolution_details'][0]['min_beauty']
 
                 evChain['bigMon'].append(b)
 
@@ -305,10 +332,6 @@ def test():
 if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
-    # testEmAll()
-
-    # test()
-
     f = open('pokemon.json')
     print('loading json file')
     data = json.load(f)
