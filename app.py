@@ -8,10 +8,14 @@ app = Flask(__name__)
 
 def loadRandomPokemonBatch():
     batch = []
+    used = []
     for p in range(24):
         rand = random.randint(0,897)
+        while(rand in used):
+            rand = random.randint(0,897)
         singleRandomMon = data[rand]
         batch.append(singleRandomMon)
+        used.append(rand)
     return batch
 
 @app.route('/')
@@ -26,8 +30,24 @@ def pokebyname(name = None):
         if i['name'] == name:
             # sort the list of moves before rendering
             i['moves'] = sorted(i['moves'], key=lambda j:j['level_learned_at'])
-            return render_template('pokemon.html', Pokemon = i)
 
+            # The last pokemon has to manually be wrapped back around to the start
+            if i['id'] == 898:
+                next = {
+                    'name': data[0]['name'],
+                    'id' : data[0]['id']
+                }
+            else:
+                 next = {
+                    'name': data[i['id']]['name'],
+                    'id': data[i['id']]['id']
+                }
+            prev = {
+                'name':data[i['id']-2]['name'],
+                'id':data[i['id']-2]['id']
+            }
+
+            return render_template('pokemon.html', Pokemon = i, nextMon = next, prevMon = prev)
     return render_template('error.html')
 
 #get to pokemon page by pokedex number
@@ -38,7 +58,24 @@ def pokebynum(num = None):
         if i['id'] == num:
             # sort the list of moves before rendering
             i['moves'] = sorted(i['moves'], key=lambda j:j['level_learned_at'])
-            return render_template('pokemon.html', Pokemon = i)
+            
+            if num == 898:
+                next = {
+                    'name': data[0]['name'],
+                    'id' : data[0]['id']
+                }
+            else:
+                 next = {
+                    'name': data[num]['name'],
+                    'id' : data[num]['id']
+                }
+
+            prev = {
+                'name':data[num-2]['name'],
+                'id':data[num-2]['id']
+            }
+
+            return render_template('pokemon.html', Pokemon = i, nextMon = next, prevMon = prev)
     return render_template('error.html')
 
 
@@ -82,7 +119,22 @@ def setUpEvolutionLines(ev_chain):
         evChain['smallestMonId'] = getOne['id']
 
         for i in ev_chain['chain']['evolves_to']:
-            m = {'name':None, 'id':None, 'level_up_trigger':None, 'level':None, 'item':None, 'happiness':None, 'location': None}
+            m = {
+                'name':None,
+                'id':None,
+                'level_up_trigger':None,
+                'level':None, 
+                'item':None, 
+                'happiness':None, 
+                'location': None
+                # Add time_of_day - triggered by level up
+                # Add affection - triggered by level up
+                # Add trade_species['name'] - triggered by trade
+                # Add beauty - triggered by level up
+                # Add Held Item -triggered by trade and maybe level up
+                    #gligar requires holding an item and to level up at night
+            }
+
             midurl = i['species']['url']
             getOne = requests.get(midurl).json()
 
@@ -141,6 +193,8 @@ def testEmAll():
 
 
 
+
+# You need to fix the evolution line on the pokemon html page
 
 def grabEmAll():
     Pokemon=[]
@@ -250,10 +304,10 @@ def test():
 
 if __name__ == '__main__':
     print('starting PokeInfo')
-    grabEmAll()
+    # grabEmAll()
     # testEmAll()
 
-    test()
+    # test()
 
     f = open('pokemon.json')
     print('loading json file')
