@@ -34,7 +34,15 @@ input:-webkit-autofill {
     border-style: none;
 }
 
+.next-prev-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 5% 1%;
+}
 
+.next-prev{
+    display: flex;
+}
 
 .pokemonIndexLink{
     transition-duration: 0.5s;
@@ -122,11 +130,24 @@ input:-webkit-autofill {
     background-color: #F8F7FF;
 }
 
+
+/* Evolution Section */
 .evolutionContainer{
     display: flex;
     justify-content: center;
     flex-direction: row;
 }
+
+.pokemon-evolution{
+    display: flex;
+}
+
+.pokemon-evolution-arrow-and-level{
+    margin:auto;
+}
+
+
+/* Moves Section */
 .singleLevelUpMoveContainer{
     display: flex;
     flex-direction: row;
