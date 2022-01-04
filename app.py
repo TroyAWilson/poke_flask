@@ -18,6 +18,20 @@ def loadRandomPokemonBatch():
         used.append(rand)
     return batch
 
+
+@app.route('/test')
+def testPage():
+    return render_template('test.html')
+
+@app.route('/test/<t>')
+def extendedTestPage(t = None):
+    return render_template('test.html', t = t)
+
+
+@app.route('/move/<name>')
+def moveByName(name = None):
+    return render_template('move.html', move = movesData[name])
+
 @app.route('/')
 def index():
     batch = loadRandomPokemonBatch()
@@ -329,6 +343,8 @@ def test():
 
 
 
+
+
 if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
@@ -337,4 +353,8 @@ if __name__ == '__main__':
     data = json.load(f)
     f.close() 
     
+    g = open('moves.json')
+    movesData = json.load(g)
+    g.close() 
+
     app.run()

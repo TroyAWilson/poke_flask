@@ -4,15 +4,15 @@
     <title>PokéInfo</title> 
 {% endblock %}
 
-{% block body %}    
-<form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
-    <div class = "pokemonOutterContainer">
-        {% for item in batch %}
-                <div class = "pokemonContainer">    
-                    <img class='indexpokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item['id']}}.png">
-                    <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{item['id']}}"> {{item['name']}} </button>
-                </div>
-        {% endfor %}
-    </div>
-</form>
+{% block body %}   
+
+{% for item in batch %}
+    <a href="/pokemon/{{item['id']}}">
+        <div class = "pokemonContainer">    
+            <img class='indexpokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item['id']}}.png">
+            <p> {{item['name']}} </p>
+        </div>
+    </a>
+{% endfor %}
+
 {% endblock %}

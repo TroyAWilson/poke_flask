@@ -22,8 +22,13 @@ p{
 }
 
 a{
-    color:black;
+    color:#2769be;
     text-decoration: none;
+    transition: 0.5s;
+}
+
+a:hover{
+    color: #c03028;
 }
 
 title{
@@ -154,6 +159,7 @@ input:-webkit-autofill {
     justify-content: center;
     align-items: flex-start;
     border-bottom: 0.5px solid #d3d3d3;
+    background-color: #F8F7FF;
 }
 
 .singleLevelUpMoveContainer p {
@@ -217,7 +223,7 @@ input:-webkit-autofill {
     background-color: #76e;
 }
 
-.fight-type{
+.fighting-type{
     background-color: #b54;
 }
 
