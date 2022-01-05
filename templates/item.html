@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class = 'item-header'>
+        <h1 class='capitalize'>{{item['name']}}</h1>
+    </div>
+
+    <img style='width:50px;' src = '{{item['sprite']}}'>
+
+    <div>
+        <p> cost: {{item['cost']}}₽ </p>
+        <p> item effect: {{item['effect']}} </p>
+    </div>
+
+    <h3>Game Descriptions</h3>
+    <div>
+        {% for i in item['flavor_text'] %}
+        <div class = 'item-version-description'>
+            <p>{{i['version']}} </p>
+            <p>{{i['text']}} </p>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

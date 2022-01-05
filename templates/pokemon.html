@@ -156,14 +156,16 @@
                             {% if item['item'] == None %}
                                 <p>Use Item</p>
                             {% else%}
-                                <p>{{item['item']}}</p>
+                                <a href="/item/{{item['item']}}">
+                                    <p>{{item['item']}}</p>
+                                </a>
                             {% endif %}
                         <!-- TRADE CHECK -->
                         {% elif item['level_up_trigger'] == 'trade' %}
                             {% if item['trade_species'] != None %}
                                 <p>Trade w/ {{item['trade_species']['name']}}</p>
                             {% elif item['held_item'] != None %}
-                                <p>Trade holding {{item['held_item']}}</p>
+                                <p>Trade holding <a href="/item/{{item['held_item']}}">{{item['held_item']}}</a></p>
                             {% else %}
                                 <p>Trade</p>
                             {% endif %}
@@ -204,14 +206,16 @@
                             {% if item['item'] == None %}
                                 <p>Use Item</p>
                             {% else%}
+                            <a href="/item/{{item['item']}}">
                                 <p>{{item['item']}}</p>
+                            </a>
                             {% endif %}
                         <!-- TRADE CHECK -->
                         {% elif item['level_up_trigger'] == 'trade' %}
                             {% if item['trade_species'] != None %}
                                 <p>Trade w/ {{item['trade_species']['name']}}</p>
                             {% elif item['held_item'] != None %}
-                                <p>Trade holding {{item['held_item']}}</p>
+                                <p>Trade holding <a href="/item/{{item['held_item']}}">{{item['held_item']}}</a></p>
                             {% else %}
                                 <p>Trade</p>
                             {% endif %}

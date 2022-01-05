@@ -1,5 +1,6 @@
 from os import environ
 from flask import Flask, render_template, url_for, request
+from flask.wrappers import Response
 import requests
 import json
 import random
@@ -18,19 +19,13 @@ def loadRandomPokemonBatch():
         used.append(rand)
     return batch
 
-
-@app.route('/test')
-def testPage():
-    return render_template('test.html')
-
-@app.route('/test/<t>')
-def extendedTestPage(t = None):
-    return render_template('test.html', t = t)
-
-
 @app.route('/move/<name>')
 def moveByName(name = None):
     return render_template('move.html', move = movesData[name], pokemon = data, data = data)
+
+@app.route('/item/<name>')
+def itemByName(name = None):
+    return render_template('item.html', item = itemsData[name], pokemon = data, data = data)
 
 @app.route('/')
 def index():
@@ -348,15 +343,51 @@ def packageMoves(pokemon):
 
     return pMoves
 
+def gatherItems():
+    items = {}
+    for i in range(1,1330):
+        print(i)
+        item = requests.get(f'https://pokeapi.co/api/v2/item/{i}')
+        if not item.ok:
+            continue
+        else:
+            item = item.json()
 
-def test():
-    p = requests.get(f'https://pokeapi.co/api/v2/pokemon/25').json()
+        items[item['name']] = {
+            'name': None,
+            'cost': item['cost'],
+            'sprite': item['sprites']['default'],
+            'effect': None,
+            'attributes': None,
+            'flavor_text': None
+        }
 
-    y = packageMoves(p)
+        if len(item['effect_entries']) > 0:
+            items[item['name']]['effect'] = item['effect_entries'][0]['effect'].replace('\n',' ')
 
-    print(y)
 
+        manyFlavorText = []
+        manyAttributes = []
 
+        for j in item['names']:
+            if j['language']['name'] == 'en':
+                items[item['name']]['name'] = j['name']
+
+        for j in item['flavor_text_entries']:
+            if j['language']['name'] == 'en':
+                flavor = {
+                    'text':j['text'].replace('\n', ' '),
+                    'version':j['version_group']['name'].replace('-',' ')
+                }
+                manyFlavorText.append(flavor)
+        items[item['name']]['flavor_text'] = manyFlavorText
+
+        for j in item['attributes']:
+            manyAttributes.append(j['name'])
+
+        # print(items)
+
+    with open('items.json', 'w') as file: file.write(json.dumps(items))  
 
 
 
@@ -364,8 +395,8 @@ if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
     
-    # print('gathering Moves')
-    # gatherMoves()
+    # print('gathering items')
+    # gatherItems()
 
     f = open('pokemon.json')
     print('loading json file')
@@ -374,6 +405,10 @@ if __name__ == '__main__':
     
     g = open('moves.json')
     movesData = json.load(g)
-    g.close() 
+    g.close()
 
-    app.run()
+    i = open('items.json')
+    itemsData = json.load(i)
+    i.close() 
+
+    app.run(host="0.0.0.0")
