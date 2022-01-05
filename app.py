@@ -30,12 +30,12 @@ def extendedTestPage(t = None):
 
 @app.route('/move/<name>')
 def moveByName(name = None):
-    return render_template('move.html', move = movesData[name], pokemon = data)
+    return render_template('move.html', move = movesData[name], pokemon = data, data = data)
 
 @app.route('/')
 def index():
     batch = loadRandomPokemonBatch()
-    return render_template('index.html', batch=batch)
+    return render_template('index.html', batch=batch, data = data)
 
 #gets to pokemon page by pokemon name
 @app.route('/<name>')
@@ -61,7 +61,7 @@ def pokebyname(name = None):
                 'id':data[i['id']-2]['id']
             }
 
-            return render_template('pokemon.html', Pokemon = i, nextMon = next, prevMon = prev)
+            return render_template('pokemon.html', Pokemon = i, nextMon = next, prevMon = prev, data = data)
     return render_template('error.html')
 
 #get to pokemon page by pokedex number
@@ -89,7 +89,7 @@ def pokebynum(num = None):
                 'id':data[num-2]['id']
             }
 
-            return render_template('pokemon.html', Pokemon = i, nextMon = next, prevMon = prev)
+            return render_template('pokemon.html', Pokemon = i, nextMon = next, prevMon = prev, data = data)
     return render_template('error.html')
 
 
