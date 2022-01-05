@@ -1,5 +1,57 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<p>{{move}}</p>
+    <h1>{{move['name']}}</h1>
+
+    <h3>Move Data</h3>
+    <div>
+        <div class="move-data">
+            <p>type:</p>
+            <p class="{{move['type']}}-type">{{move['type']}}</p>
+        </div>
+
+        <div class="move-data">
+            <p>category:</p>
+            <p>{{move['damage_class']}}</p>
+        </div>
+
+        <div class="move-data">
+            <p>power:</p>
+            <p>{{move['power']}}</p>
+        </div>
+
+        <div class="move-data">
+            <p>accuracy:</p>
+            <p>{{move['accuracy']}}</p>
+        </div>
+
+        <div class="move-data">
+            <p>PP:</p>
+            <p>{{move['pp']}}</p>
+        </div>
+
+        <div class="move-data">
+            <p>TM:</p>
+            <p>{{move['tm']}}</p>
+        </div>
+    </div>
+
+    <h3>Effects</h3>
+    <p>{{move['flavor_text']}}</p>
+
+    <h3>Pokemon that can learn</h3>
+    <div>
+        {% for item in move['learned_by'] %}
+            {% for p in pokemon %}
+                {% if p['name'] == item %}
+                    <div class="move-learned-pokemon-container">
+                        <a href="/pokemon/{{p['id']}}">
+                            <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{p['id']}}.png">
+                            <p>{{p['name']}}</p>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

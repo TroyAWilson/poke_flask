@@ -2,13 +2,11 @@
 
 
 {% block head %} 
-    <title>{{Pokemon['forms'][0]['name'].capitalize()}} Pokédex Entery</title> 
+    <title>{{Pokemon['name'].capitalize()}} Pokédex Entery</title> 
 {% endblock %}
 
 
 {% block body %}
-
-    <!-- At some point add in a 'move to next numerical pokemon button and 'move to previous numerical pokemon button' -->
 
     <div class = 'next-prev-container'>
         <div class="next-prev">
@@ -23,7 +21,7 @@
         </div>
     </div>
 
-    <h2 class='pokename'>{{Pokemon['forms'][0]['name']}}</h2>
+    <h2 class='pokename'>{{Pokemon['name']}}</h2>
     <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['id']}}.png">
 
 
@@ -119,15 +117,15 @@
         {% endfor %}
     </div>
 
+    <h3>Type Defenses</h3>
+    <div>
+        <p>defense chart goes here</p>
+    </div>
+
     <h3>Evolution Line</h3>
     <div class = 'evolutionContainer'>
         
         <div style="margin: auto 0;">
-            <!-- <form action="{{ url_for('getNewPokemonbyNumber')}}" method = "POST" >
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['smallestMonId']}}.png" alt="">
-                <button class = 'pokemonIndexLink' type="submit" name = newNumber value="{{Pokemon['evolution_chain']['smallestMonId']}}"> {{Pokemon['evolution_chain']['smallestMon']}} </button>
-            </form>   -->
-
             <a href="/pokemon/{{Pokemon['evolution_chain']['smallestMonId']}}">
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['evolution_chain']['smallestMonId']}}.png" alt="">
                 <p>{{Pokemon['evolution_chain']['smallestMon']}}</p>
@@ -233,7 +231,8 @@
     </div>
 
 
-
+    <h3>Pokedex Entery</h3>
+    <p>Some text go here</p>
 
     <h3>Moves</h3>
     <!-- egg, machine-->
@@ -307,4 +306,20 @@
         {% endif %}
     {% endfor %}
 
+    <h3>Shiny Sprite</h3>
+    <img class='shinypokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/{{Pokemon['id']}}.png">
+    <img class='shinypokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/{{Pokemon['id']}}.png">
+
+    <div class = 'next-prev-container'>
+        <div class="next-prev">
+            <a href="/pokemon/{{prevMon['id']}}">
+                <p> &#8592 #{{prevMon['id']}} {{prevMon['name']}} </p>
+            </a>
+        </div>
+        <div class="next-prev">
+            <a href="/pokemon/{{nextMon['id']}}">
+                <p> {{nextMon['name']}} #{{nextMon['id']}} &#8594 </p>
+            </a>
+        </div>
+    </div>
 {% endblock %}
