@@ -30,7 +30,7 @@ def extendedTestPage(t = None):
 
 @app.route('/move/<name>')
 def moveByName(name = None):
-    return render_template('move.html', move = movesData[name])
+    return render_template('move.html', move = movesData[name], pokemon = data)
 
 @app.route('/')
 def index():
@@ -250,7 +250,7 @@ def grabEmAll():
         evChain = setUpEvolutionLines(ev_chain)
 
         pokemon = {
-            'name': pokemonMassInfo['name'],
+            'name': pokemonMassInfo['species']['name'],
             'id':  pokemonMassInfo['id'],
             'abilities':  pokemonMassInfo['abilities'],
             'base_experience': pokemonMassInfo['base_experience'],
@@ -294,9 +294,24 @@ def gatherMoves():
             'damage_class': r['damage_class']['name'],
             'power': r['power'],
             'pp': r['pp'],
-            'type': r['type']['name']
+            'type': r['type']['name'],
+            'flavor_text':r['flavor_text_entries'][7]['flavor_text'].replace('\n',' '),
+            'learned_by': None, #set this up, should be an array of pokemon names, then can search the local pokemon data to get the ID number
+            'tm': None, #if 'machines' is empty leave this empty otherwise [machines][length of thing][machine][url] gives you a url follow url and go [item][name]
         }
-    
+
+        learned = []
+
+        for item in r['learned_by_pokemon']:
+            learned.append(item['name'])
+
+        moves[r['name']]['learned_by'] = learned
+
+        if len(r['machines']) > 0:
+            tmURL = r['machines'][len(r['machines'])-1]['machine']['url']
+            tmInfo = requests.get(tmURL).json()
+            moves[r['name']]['tm'] = tmInfo['item']['name']
+
     with open('moves.json', 'w') as file: file.write(json.dumps(moves))  
 
 
@@ -348,6 +363,10 @@ def test():
 if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
+    
+    # print('gathering Moves')
+    # gatherMoves()
+
     f = open('pokemon.json')
     print('loading json file')
     data = json.load(f)

@@ -13,7 +13,10 @@
 </head>
 <body>
     <a name = 'top' href="{{ url_for('index')}}">
-        <h1 class = "pokeTitle">PokéInfo</h1>
+        <div class='pokeTitleContainer'>
+            <img src="{{ url_for('static', filename='css/images/pokemon_egg.ico') }}" alt="">
+            <h1 class = "pokeTitle">PokéInfo</h1>
+        </div>
     </a>
     <form action="{{ url_for('getNewPokemon')}}" method = "POST" >
         <div>
@@ -26,8 +29,12 @@
     {% endblock %}
 </body>
 <footer >
+    <div style="height: 25px; background-color: #818589;">
+
+    </div>
     <a href="#top">
         <p>Return to the top of the page</p>
     </a>
+    <p style="font-size: 15px;">Pokémon images & names © 1995-2022 Nintendo/Game Freak.</p>
 </footer>
 </html>
