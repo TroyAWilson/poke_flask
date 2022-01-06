@@ -238,6 +238,9 @@ def testEmAll():
 
 def grabEmAll():
     Pokemon=[]
+    t = open('types.json')
+    tData = json.load(t)
+    t.close() 
     print('collecting pokemon')
 
     for i in range(1,899):
@@ -269,8 +272,46 @@ def grabEmAll():
             'habitat': pokemonSpeciesMassInfo['habitat'],
             'species': pokemonSpeciesMassInfo['genera'][7]['genus'],
 
-            'moves': pMoves
+            'moves': pMoves,
+            'weaknessChart':None
         }
+
+        weaknessChart = {
+            'normal':0,
+            'fire':0,
+            'water':0,
+            'electric':0,
+            'grass':0,
+            'ice':0,
+            'fighting':0,
+            'poison':0,
+            'ground':0,
+            'flying':0,
+            'psychic':0,
+            'bug':0,
+            'rock':0,
+            'ghost':0,
+            'dragon':0,
+            'dark':0,
+            'steel':0,
+            'fairy':0,
+        }
+
+        ddf = []
+        hdf = []
+        for j in pokemon['types']:
+            ddf.append(tData[j['type']['name']]['double_damage_from'])
+            hdf.append(tData[j['type']['name']]['half_damage_from'])
+
+        for j in ddf:
+            for k in j:
+                weaknessChart[k] += 2
+        
+        for j in hdf:
+            for k in j:
+                weaknessChart[k] -= 2
+
+        pokemon['weaknessChart'] = weaknessChart
 
         Pokemon.append(pokemon)
 
@@ -467,7 +508,7 @@ if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
 
-    gatherTypes()
+    # gatherTypes()
 
     f = open('pokemon.json')
     print('loading json file')

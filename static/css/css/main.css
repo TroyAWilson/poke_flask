@@ -34,6 +34,11 @@ input:-webkit-autofill {
     border-style: none;
 }
 
+tbody{
+    display:flex;
+    flex-direction: column;
+}
+
 .next-prev-container{
     display: flex;
     justify-content: space-between;
