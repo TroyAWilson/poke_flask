@@ -237,6 +237,7 @@ def testEmAll():
 # You need to fix the evolution line on the pokemon html page
 
 def grabEmAll():
+    print('Gathering Pokemon')
     Pokemon=[]
     t = open('types.json')
     tData = json.load(t)
@@ -267,7 +268,7 @@ def grabEmAll():
             'base_happiness': pokemonSpeciesMassInfo['base_happiness'],
             'egg_groups': pokemonSpeciesMassInfo['egg_groups'],
             'evolution_chain': evChain,
-            'flavor_text_entries': pokemonSpeciesMassInfo['flavor_text_entries'],
+            'flavor_text_entries': None,
             'growth_rate': pokemonSpeciesMassInfo['growth_rate'],
             'habitat': pokemonSpeciesMassInfo['habitat'],
             'species': pokemonSpeciesMassInfo['genera'][7]['genus'],
@@ -275,6 +276,8 @@ def grabEmAll():
             'moves': pMoves,
             'weaknessChart':None
         }
+
+
 
         weaknessChart = {
             'normal':0,
@@ -296,6 +299,17 @@ def grabEmAll():
             'steel':0,
             'fairy':0,
         }
+
+        manyFlavorText = []
+
+        for j in pokemonSpeciesMassInfo['flavor_text_entries']:
+            if j['language']['name'] == 'en':
+                flavor = {
+                    'text': j['flavor_text'],
+                    'version': j['version']['name']
+                }
+                manyFlavorText.append(flavor)
+        pokemon['flavor_text_entries'] = manyFlavorText
 
         ddf = []
         hdf = []
@@ -507,8 +521,6 @@ def gatherTypes():
 if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
-
-    # gatherTypes()
 
     f = open('pokemon.json')
     print('loading json file')

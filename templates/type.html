@@ -4,7 +4,46 @@
 
 <h1 class = 'capitalize'>{{type['name']}}</h1>
 
-<h3>Typing Chart go here</h3>
+<h3>Offensive pros and cons</h3>
+
+<p>{{type['name']}} moves are super-effective against:</p>
+    <div class = 'type-page-typing-container'>
+        {% for item in type['double_damage_to'] %}
+            <a href="/type/{{item}}">
+                <p style='color:black;' class='{{item}}-type'>{{item}}</p>
+            </a>
+        {% endfor %}
+    </div>
+
+<p>{{type['name']}} moves are not very effective against:</p>
+    <div class = 'type-page-typing-container'>
+        {% for item in type['half_damage_to'] %}
+            <a href="/type/{{item}}">
+                <p style='color:black;' class='{{item}}-type'>{{item}}</p>
+            </a>        
+        {% endfor %}
+    </div>
+
+<h3>Defensive pros and cons</h3>
+
+<p>These types are super-effective against {{type['name']}} Pokémon:</p>
+<div class = 'type-page-typing-container'>
+    {% for item in type['double_damage_from'] %}
+        <a href="/type/{{item}}">
+            <p style='color:black;' class='{{item}}-type'>{{item}}</p>
+        </a>    
+    {% endfor %}
+</div>
+
+<p>These types are not very effective against {{type['name']}} Pokémon:</p>
+<div class = 'type-page-typing-container'>
+    {% for item in type['half_damage_from'] %}
+        <a href="/type/{{item}}">
+            <p style='color:black;' class='{{item}}-type'>{{item}}</p>
+        </a>    
+    {% endfor %}
+</div>
+
 
 
 <h3>Pokemon of Type</h3>

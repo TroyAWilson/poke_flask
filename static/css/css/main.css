@@ -176,6 +176,19 @@ tbody{
 }
 
 
+.pokemon-version-flavor{
+    display: flex;
+    text-align: left; 
+    margin:10px 20px;
+}
+
+.pokemon-version-flavor p{
+    font-size: 14px;
+    flex: 1;
+}
+
+
+
 /* Moves Section */
 .singleLevelUpMoveContainer{
     display: flex;
@@ -232,7 +245,10 @@ tbody{
 }
 
 
-
+.type-page-typing-container{
+    display: flex;
+    justify-content: center;
+}
 
 
 

@@ -11,12 +11,12 @@
     <div class = 'next-prev-container'>
         <div class="next-prev">
             <a href="/pokemon/{{prevMon['id']}}">
-                <p> &#8592 #{{prevMon['id']}} {{prevMon['name']}} </p>
+                <p> &#8249; #{{prevMon['id']}} {{prevMon['name']}} </p>
             </a>
         </div>
         <div class="next-prev">
             <a href="/pokemon/{{nextMon['id']}}">
-                <p> {{nextMon['name']}} #{{nextMon['id']}} &#8594 </p>
+                <p> {{nextMon['name']}} #{{nextMon['id']}} &#8250; </p>
             </a>
         </div>
     </div>
@@ -124,7 +124,9 @@
         <div style= 'display:flex; flex-wrap:wrap; justify-content:center; padding:5%; margin:2%; background-color:#F8F7FF'>
             {%for item in Pokemon['weaknessChart'] %}
                 <div style= 'border:1px solid black; margin:2px'>
-                    <p class = '{{item}}-type' style=' padding:4px; border-bottom: 1px solid black'>{{item[:3]}}</p>
+                    <a href="/type/{{item}}">
+                        <p style = 'color:black;' class = '{{item}}-type' style=' padding:4px; border-bottom: 1px solid black'>{{item[:3]}}</p>
+                    </a>
                     {% if Pokemon['weaknessChart'][item] == 2 %}
                         <p style='font-size:12px; background-color: #a40000; color: #ffdd57'>2x</p>
                     {% elif Pokemon['weaknessChart'][item] == 4 %}
@@ -255,7 +257,14 @@
 
 
     <h3>Pokedex Entery</h3>
-    <p>Some text go here</p>
+    <div style='background-color: #F8F7FF'>
+        {% for i in Pokemon['flavor_text_entries'] %}
+        <div class = 'pokemon-version-flavor'>
+            <p>{{i['version'].replace('-',' ')}} </p>
+            <p>{{i['text'].replace('\n',' ')}} </p>
+        </div>
+        {% endfor %}
+    </div>
 
     <h3>Moves</h3>
     <!-- egg, machine-->
