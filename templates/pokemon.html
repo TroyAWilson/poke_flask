@@ -59,7 +59,9 @@
         <div class="pokedexsubfield">
             <p>Type(s):</p>
             {% for item in Pokemon['types'] %}
-                <p class = "{{item['type']['name']}}-type">{{item['type']['name']}}</p>
+                <a href="/type/{{item['type']['name']}}">
+                    <p style="color:black;" class = "{{item['type']['name']}}-type">{{item['type']['name']}}</p>
+                </a>
             {% endfor %}
         </div>
 
@@ -118,8 +120,25 @@
     </div>
 
     <h3>Type Defenses</h3>
-    <div>
-        <p>defense chart goes here</p>
+    <div class = 'type-defense-container'>
+        <table>
+            <tr>
+                <th>
+                    nor
+                </th>
+                <th>
+                    fir
+                </th>
+                <th>
+                    wat
+                </th>
+            </tr>
+            <tr>
+                <td>&#189;</td> 
+                <td>2</td>
+                <td>&#188;</td> 
+            </tr>
+        </table>
     </div>
 
     <h3>Evolution Line</h3>
@@ -255,9 +274,11 @@
                 <div class = 'singleLevelUpMoveContainer'>
                     <p> {{item['level_learned_at']}}</p>
                     <a href="/move/{{item['name']}}">
-                        <p> {{item['name']}} </p>
+                        <p> {{item['name'].replace('-',' ')}} </p>
                     </a>
-                    <p class="{{item['type']}}-type"> {{item['type']}} </p>
+                    <a href="/type/{{item['type']}}">
+                        <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
+                    </a>                    
                     <p> {{item['damage_class']}} </p>
                     <p> {{item['power']}} </p>
                     <p> {{item['pp']}} </p>
@@ -277,9 +298,11 @@
         {% if item['move_learn_method'] == 'egg' %}
             <div class = 'singleLevelUpMoveContainer'>
                 <a href="/move/{{item['name']}}">
-                    <p> {{item['name']}} </p>
+                    <p> {{item['name'].replace('-',' ')}} </p>
                 </a>                
-                <p class="{{item['type']}}-type"> {{item['type']}} </p>
+                <a href="/type/{{item['type']}}">
+                    <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
+                </a>                
                 <p> {{item['damage_class']}} </p>
                 <p> {{item['power']}} </p>
                 <p> {{item['pp']}} </p>
@@ -300,9 +323,11 @@
         {% if item['move_learn_method'] == 'machine' %}
             <div class = 'singleLevelUpMoveContainer'>
                 <a href="/move/{{item['name']}}">
-                    <p> {{item['name']}} </p>
+                    <p> {{item['name'].replace('-',' ')}} </p>
                 </a>                
-                <p class="{{item['type']}}-type"> {{item['type']}} </p>
+                <a href="/type/{{item['type']}}">
+                    <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
+                </a>
                 <p> {{item['damage_class']}} </p>
                 <p> {{item['power']}} </p>
                 <p> {{item['pp']}} </p>

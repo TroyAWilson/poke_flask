@@ -27,6 +27,10 @@ def moveByName(name = None):
 def itemByName(name = None):
     return render_template('item.html', item = itemsData[name], pokemon = data, data = data)
 
+@app.route('/type/<name>')
+def typeByName(name = None):
+    return render_template('type.html', type = typesData[name], pokemon = data, data = data)
+
 @app.route('/')
 def index():
     batch = loadRandomPokemonBatch()
@@ -390,13 +394,78 @@ def gatherItems():
     with open('items.json', 'w') as file: file.write(json.dumps(items))  
 
 
+def gatherTypes():
+    print('gathering types')
+
+    #What do I need?
+    # 1 - 18
+    # double damage from
+    # double damage to
+    # half damage from
+    # half damage to
+    # pokemon names of that type [pokemon][#][pokemon][name]
+    types = {}
+    for i in range(1,18):
+        print(i)
+        type = requests.get(f'https://pokeapi.co/api/v2/type/{i}')
+        #error checking
+        if not type.ok:
+            continue
+        else:
+            type = type.json()
+
+        types[type['name']] = {
+            'name': type['name'],
+            'double_damage_from': None,#array
+            'double_damage_to': None, #array
+            'half_damage_from': None,#array
+            'half_damage_to': None, #array
+            'pokemon_of_type':None, #array of names
+            'moves_of_type': None,
+        }
+
+        ddf = []
+        for j in type['damage_relations']['double_damage_from']:
+            ddf.append(j['name'])
+        types[type['name']]['double_damage_from'] = ddf
+
+
+        ddt = []
+        for j in type['damage_relations']['double_damage_to']:
+            ddt.append(j['name'])
+        types[type['name']]['double_damage_to'] = ddt
+
+
+        hdf = []
+        for j in type['damage_relations']['half_damage_from']:
+            hdf.append(j['name'])
+        types[type['name']]['half_damage_from'] = hdf
+
+
+        hdt = []
+        for j in type['damage_relations']['half_damage_to']:
+            hdt.append(j['name'])
+        types[type['name']]['half_damage_to'] = hdt
+
+
+        mon = []
+        for j in type['pokemon']:
+            mon.append(j['pokemon']['name'])
+        types[type['name']]['pokemon_of_type'] = mon
+
+        moves = []
+        for j in type['moves']:
+            moves.append(j['name'])
+        types[type['name']]['moves_of_type'] = moves
+
+    with open('types.json', 'w') as file: file.write(json.dumps(types))  
+
+
+
 
 if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
-    
-    # print('gathering items')
-    # gatherItems()
 
     f = open('pokemon.json')
     print('loading json file')
@@ -410,5 +479,9 @@ if __name__ == '__main__':
     i = open('items.json')
     itemsData = json.load(i)
     i.close() 
+
+    t = open('types.json')
+    typesData = json.load(t)
+    t.close() 
 
     app.run(host="0.0.0.0")

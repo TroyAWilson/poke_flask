@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1 class = 'capitalize'>{{type['name']}}</h1>
+
+<h3>Typing Chart go here</h3>
+
+
+<h3>Pokemon of Type</h3>
+    <div>
+        {%for item in type['pokemon_of_type']%}
+            {% for p in pokemon %}
+                {% if item == p['name']%}
+                    <div class="pokemon-of-type-container">
+                        <a href="/pokemon/{{p['id']}}">
+                            <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{p['id']}}.png">
+                            <p>{{p['name']}}</p>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+<h3>Moves of Type</h3>
+<div>
+    {%for item in type['moves_of_type']%}
+        <div class="pokemon-of-type-container">
+            <a href="/move/{{item}}">
+                <p>{{item.replace('-',' ')}}</p>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

@@ -136,6 +136,24 @@ input:-webkit-autofill {
     background-color: #F8F7FF;
 }
 
+/* Type defense */
+.type-defense-container{
+    display: flex;
+    justify-content: center;
+}
+
+.type-defense-element{
+    display: flex;
+    flex-direction: column;
+    padding: 1px;
+    border: 1px solid darkgrey;    
+}
+
+.type-defense-type{
+    border-bottom: 1px solid lightgrey;
+}
+
+
 
 /* Evolution Section */
 .evolutionContainer{
@@ -175,6 +193,9 @@ input:-webkit-autofill {
 
 
 
+
+
+
 .move-data{
     display: flex;
     justify-content: center;
@@ -182,7 +203,7 @@ input:-webkit-autofill {
     background-color: #F8F7FF;
 }
 
-.move-learned-pokemon-container{
+.move-learned-pokemon-container, .pokemon-of-type-container{
     display: inline-block;
     margin: 5px;
     padding: 5px;
