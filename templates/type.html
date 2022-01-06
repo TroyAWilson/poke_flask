@@ -24,14 +24,36 @@
     </div>
 
 <h3>Moves of Type</h3>
+
 <div>
+    <div class = 'singleLevelUpMoveContainer'>
+        <!-- Add TM number -->
+        <p>Move</p>
+        <p>Type</p>
+        <p>Cat.</p>
+        <p>Power</p>
+        <p>PP</p>
+    </div>
     {%for item in type['moves_of_type']%}
-        <div class="pokemon-of-type-container">
-            <a href="/move/{{item}}">
-                <p>{{item.replace('-',' ')}}</p>
-            </a>
-        </div>
+
+        {% for m in move %}
+            {% if item == m %}
+            <div class = 'singleLevelUpMoveContainer'>
+                <a href="/move/{{item}}">
+                    <p> {{move[m]['name'].replace('-',' ')}} </p>
+                </a>
+                <a href="/type/{{move[m]['type']}}">
+                    <p style="color:black;" class="{{move[m]['type']}}-type"> {{move[m]['type']}} </p>
+                </a>
+                <p> {{move[m]['damage_class']}} </p>
+                <p> {{move[m]['power']}} </p>
+                <p> {{move[m]['pp']}} </p>
+            </div>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
+
+    {{move['pound']['power']}}
 </div>
 
 

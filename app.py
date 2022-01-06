@@ -29,7 +29,7 @@ def itemByName(name = None):
 
 @app.route('/type/<name>')
 def typeByName(name = None):
-    return render_template('type.html', type = typesData[name], pokemon = data, data = data)
+    return render_template('type.html', type = typesData[name], move = movesData, pokemon = data)
 
 @app.route('/')
 def index():
@@ -405,7 +405,7 @@ def gatherTypes():
     # half damage to
     # pokemon names of that type [pokemon][#][pokemon][name]
     types = {}
-    for i in range(1,18):
+    for i in range(1,19):
         print(i)
         type = requests.get(f'https://pokeapi.co/api/v2/type/{i}')
         #error checking
@@ -466,6 +466,8 @@ def gatherTypes():
 if __name__ == '__main__':
     print('starting PokeInfo')
     # grabEmAll()
+
+    gatherTypes()
 
     f = open('pokemon.json')
     print('loading json file')
