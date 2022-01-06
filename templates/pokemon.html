@@ -71,9 +71,9 @@
             <div class="pokeabilities">
                 {% for item in Pokemon['abilities'] %}
                     {% if item['is_hidden'] == True %}
-                        <p>{{item['ability']['name']}} <span>(H.A.)</span></p>
+                        <p>{{item['ability']['name'].replace('-',' ')}} <span>(H.A.)</span></p>
                     {% else %}
-                        <p>{{item['ability']['name']}}</p>
+                        <p>{{item['ability']['name'].replace('-',' ')}}</p>
                     {% endif %}
                 {% endfor %}
             </div>
@@ -100,7 +100,7 @@
 
         <div class="pokedexsubfield">
             <p>Growth Rate:</p>
-            <p>{{Pokemon['growth_rate']['name']}}</p>
+            <p>{{Pokemon['growth_rate']['name'].replace('-',' ')}}</p>
         </div>
     </div>
 
@@ -121,24 +121,24 @@
 
     <h3>Type Defenses</h3>
     <div class = 'type-defense-container'>
-        <table>
-            <tr>
-                <th>
-                    nor
-                </th>
-                <th>
-                    fir
-                </th>
-                <th>
-                    wat
-                </th>
-            </tr>
-            <tr>
-                <td>&#189;</td> 
-                <td>2</td>
-                <td>&#188;</td> 
-            </tr>
-        </table>
+        <div style= 'display:flex; flex-wrap:wrap; justify-content:center; padding:5%; margin:2%; background-color:#F8F7FF'>
+            {%for item in Pokemon['weaknessChart'] %}
+                <div style= 'border:1px solid black; margin:2px'>
+                    <p class = '{{item}}-type' style=' padding:4px; border-bottom: 1px solid black'>{{item[:3]}}</p>
+                    {% if Pokemon['weaknessChart'][item] == 2 %}
+                        <p style='font-size:12px; background-color: #a40000; color: #ffdd57'>2x</p>
+                    {% elif Pokemon['weaknessChart'][item] == 4 %}
+                        <p style='font-size:12px; background-color: #7c0000; color: #ffdd57'>4x</p>
+                    {% elif Pokemon['weaknessChart'][item] == -2 %}
+                        <p style='font-size:12px; background-color: #4e9a06; color: #ffdd57'>&#189;</p>
+                    {% elif Pokemon['weaknessChart'][item] == -4 %}
+                        <p style='font-size:12px; background-color: #73d216; color: #ffdd57'>&#188;</p>
+                    {% else %}
+                        <p style='font-size:12px'>{{Pokemon['weaknessChart'][item]}}</p>
+                    {% endif %}
+                </div>    
+            {% endfor %}
+        </div>
     </div>
 
     <h3>Evolution Line</h3>
