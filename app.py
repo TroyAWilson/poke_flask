@@ -313,9 +313,16 @@ def grabEmAll():
 
         ddf = []
         hdf = []
+        ndf = []
         for j in pokemon['types']:
             ddf.append(tData[j['type']['name']]['double_damage_from'])
             hdf.append(tData[j['type']['name']]['half_damage_from'])
+            ndf.append(tData[j['type']['name']]['no_damage_from'])
+
+
+        for j in ndf:
+            for k in j:
+                weaknessChart[k] += -999
 
         for j in ddf:
             for k in j:
@@ -452,13 +459,6 @@ def gatherItems():
 def gatherTypes():
     print('gathering types')
 
-    #What do I need?
-    # 1 - 18
-    # double damage from
-    # double damage to
-    # half damage from
-    # half damage to
-    # pokemon names of that type [pokemon][#][pokemon][name]
     types = {}
     for i in range(1,19):
         print(i)
@@ -475,6 +475,8 @@ def gatherTypes():
             'double_damage_to': None, #array
             'half_damage_from': None,#array
             'half_damage_to': None, #array
+            'no_damage_from': None,
+            'no_damage_to': None,
             'pokemon_of_type':None, #array of names
             'moves_of_type': None,
         }
@@ -502,6 +504,15 @@ def gatherTypes():
             hdt.append(j['name'])
         types[type['name']]['half_damage_to'] = hdt
 
+        ndf = []
+        for j in type['damage_relations']['no_damage_from']:
+            ndf.append(j['name'])
+        types[type['name']]['no_damage_from'] = ndf
+
+        ndt = []
+        for j in type['damage_relations']['no_damage_to']:
+            ndt.append(j['name'])
+        types[type['name']]['no_damage_to'] = ndt
 
         mon = []
         for j in type['pokemon']:
@@ -520,7 +531,8 @@ def gatherTypes():
 
 if __name__ == '__main__':
     print('starting PokeInfo')
-    # grabEmAll()
+    grabEmAll()
+    # gatherTypes()
 
     f = open('pokemon.json')
     print('loading json file')
