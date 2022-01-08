@@ -124,6 +124,43 @@ tbody{
     text-transform: uppercase;
 }
 
+.pokestat-individual-container{
+    display: flex;
+    align-self: start;
+}
+
+.stat-line{
+    height: 10px;
+    width: 10px;
+    align-self: center;
+    margin: 0 10px;
+}
+.very-low{
+    background-color:#f34444;
+    width: 25px;
+}
+.low{
+    background-color:#ff7f0f;
+    width: 50px;
+}
+.low-mid{
+    background-color:#ffdd57;
+    width: 75px;
+}
+.mid{
+    background-color:#a0e515;
+    width: 100px;
+}
+.high{
+    background-color:#23cd5e;
+    width: 125px;
+}
+.very-high{
+    background-color:#00c2b8;
+    width: 150px;
+}
+
+
 .pokedexsubfield{
     display: flex;
     justify-content: center;
@@ -248,6 +285,7 @@ tbody{
 .type-page-typing-container{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 

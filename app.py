@@ -31,6 +31,10 @@ def itemByName(name = None):
 def typeByName(name = None):
     return render_template('type.html', type = typesData[name], move = movesData, pokemon = data)
 
+@app.route('/ability/<name>')
+def abilityByName(name = None):
+    return render_template('ability.html', ability = abilitiesData[name], type = typesData, move = movesData, pokemon = data)
+
 @app.route('/')
 def index():
     batch = loadRandomPokemonBatch()
@@ -527,12 +531,58 @@ def gatherTypes():
     with open('types.json', 'w') as file: file.write(json.dumps(types))  
 
 
+def gatherAbilities():
+    print('Gathering abilities')
+    abilities={}
+    for i in range(1,267):
+        print(i)
+        ability = requests.get(f'https://pokeapi.co/api/v2/ability/{i}')
+        #error checking
+        if not ability.ok:
+            continue
+        else:
+            ability = ability.json()
+
+        abilities[ability['name']] = {
+            'name': ability['name'],
+            'effect': None,
+            'flavor-text': None,
+            'pokemon-who-have':None
+        }
+
+        lots_of_flavor = []
+        lots_of_pokemon = []
+
+        for j in ability['effect_entries']:
+            if j['language']['name'] == 'en':
+                abilities[ability['name']]['effect'] = j['effect']
+
+        for j in ability['flavor_text_entries']:
+            if j['language']['name'] == 'en':
+                flavor = {
+                    'text': j['flavor_text'],
+                    'version': j['version_group']['name']
+                }
+                lots_of_flavor.append(flavor)
+        abilities[ability['name']]['flavor-text'] = lots_of_flavor
+
+        for j in ability['pokemon']:
+            pokemon = {
+                'name': j['pokemon']['name'],
+                'is_hidden': j['is_hidden']
+            }
+            lots_of_pokemon.append(pokemon)
+        abilities[ability['name']]['pokemon-who-have'] = lots_of_pokemon
+
+
+    with open('abilities.json', 'w') as file: file.write(json.dumps(abilities))  
+
 
 
 if __name__ == '__main__':
     print('starting PokeInfo')
-    grabEmAll()
-    # gatherTypes()
+
+    # gatherAbilities()
 
     f = open('pokemon.json')
     print('loading json file')
@@ -550,5 +600,9 @@ if __name__ == '__main__':
     t = open('types.json')
     typesData = json.load(t)
     t.close() 
+
+    a = open('abilities.json')
+    abilitiesData = json.load(a)
+    a.close()
 
     app.run(host="0.0.0.0")

@@ -24,6 +24,15 @@
         {% endfor %}
     </div>
 
+<p>{{type['name']}} moves have no effect against:</p>
+    <div class = 'type-page-typing-container'>
+        {% for item in type['no_damage_to'] %}
+            <a href="/type/{{item}}">
+                <p style='color:black;' class='{{item}}-type'>{{item}}</p>
+            </a>        
+        {% endfor %}
+    </div>
+
 <h3>Defensive pros and cons</h3>
 
 <p>These types are super-effective against {{type['name']}} Pokémon:</p>
@@ -43,6 +52,17 @@
         </a>    
     {% endfor %}
 </div>
+
+<p>These types have no effect on {{type['name']}} Pokémon:</p>
+<div class = 'type-page-typing-container'>
+    {% for item in type['no_damage_from'] %}
+        <a href="/type/{{item}}">
+            <p style='color:black;' class='{{item}}-type'>{{item}}</p>
+        </a>    
+    {% endfor %}
+</div>
+
+
 
 
 
@@ -91,8 +111,6 @@
             {% endif %}
         {% endfor %}
     {% endfor %}
-
-    {{move['pound']['power']}}
 </div>
 
 
