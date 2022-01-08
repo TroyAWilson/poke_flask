@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %} 
+    <title>{{move['name'].capitalize()}} Move Entery</title> 
+{% endblock %}
+
 {% block body %}
     <h1 class='capitalize'>{{move['name']}}</h1>
 
@@ -33,13 +37,23 @@
         </div>
 
         <div class="move-data">
-            <p>TM:</p>
+            <p>machine:</p>
             <p>{{move['tm']}}</p>
         </div>
     </div>
 
     <h3>Effects</h3>
-    <p>{{move['flavor_text']}}</p>
+    <p>{{move['effect']}}</p>
+
+    <h3>Game Descriptions</h3>
+    <div style='background-color:#F8F7FF;'>
+        {% for i in move['flavor_text'] %}
+        <div class = 'item-version-description'>
+            <p>{{i['version'].replace('-',' ')}} </p>
+            <p>{{i['text']}} </p>
+        </div>
+        {% endfor %}
+    </div>
 
     <h3>Pokemon that can learn</h3>
     <div>

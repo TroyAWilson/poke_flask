@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %} 
+    <title>{{ability['name'].capitalize()}} Ability Entery</title> 
+{% endblock %}
+
 {% block body %}
     <h1 class='capitalize'>{{ability['name']}}</h1>
 

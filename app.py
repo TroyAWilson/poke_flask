@@ -358,14 +358,20 @@ def gatherMoves():
             'accuracy': r['accuracy'],
             'damage_class': r['damage_class']['name'],
             'power': r['power'],
+            'effect': None,
             'pp': r['pp'],
             'type': r['type']['name'],
-            'flavor_text':r['flavor_text_entries'][7]['flavor_text'].replace('\n',' '),
+            'flavor_text':None,
             'learned_by': None, #set this up, should be an array of pokemon names, then can search the local pokemon data to get the ID number
             'tm': None, #if 'machines' is empty leave this empty otherwise [machines][length of thing][machine][url] gives you a url follow url and go [item][name]
         }
 
         learned = []
+        lots_of_flavor = []
+
+        for j in r['effect_entries']:
+            if j['language']['name'] == 'en':
+                moves[r['name']]['effect'] = j['effect']
 
         for item in r['learned_by_pokemon']:
             learned.append(item['name'])
@@ -376,6 +382,16 @@ def gatherMoves():
             tmURL = r['machines'][len(r['machines'])-1]['machine']['url']
             tmInfo = requests.get(tmURL).json()
             moves[r['name']]['tm'] = tmInfo['item']['name']
+
+        for j in r['flavor_text_entries']:
+            if j['language']['name'] == 'en':
+                flavor = {
+                    'text': j['flavor_text'],
+                    'version': j['version_group']['name']
+                }
+                lots_of_flavor.append(flavor)
+        
+        moves[r['name']]['flavor_text'] = lots_of_flavor
 
     with open('moves.json', 'w') as file: file.write(json.dumps(moves))  
 
@@ -582,7 +598,7 @@ def gatherAbilities():
 if __name__ == '__main__':
     print('starting PokeInfo')
 
-    # gatherAbilities()
+    # gatherMoves()
 
     f = open('pokemon.json')
     print('loading json file')
