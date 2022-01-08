@@ -212,6 +212,9 @@ tbody{
     margin:auto;
 }
 
+.evolution-image{
+    max-width: 100%;
+}
 
 .pokemon-version-flavor{
     display: flex;
