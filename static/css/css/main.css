@@ -133,7 +133,7 @@ tbody{
     height: 10px;
     width: 10px;
     align-self: center;
-    margin: 0 10px;
+    margin: 0 5px;
 }
 .very-low{
     background-color:#f34444;
@@ -153,11 +153,11 @@ tbody{
 }
 .high{
     background-color:#23cd5e;
-    width: 125px;
+    width: 120px;
 }
 .very-high{
     background-color:#00c2b8;
-    width: 150px;
+    width: 140px;
 }
 
 
