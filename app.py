@@ -29,11 +29,11 @@ def itemByName(name = None):
 
 @app.route('/type/<name>')
 def typeByName(name = None):
-    return render_template('type.html', type = typesData[name], move = movesData, pokemon = data)
+    return render_template('type.html', type = typesData[name], move = movesData, pokemon = data, data = data)
 
 @app.route('/ability/<name>')
 def abilityByName(name = None):
-    return render_template('ability.html', ability = abilitiesData[name], type = typesData, move = movesData, pokemon = data)
+    return render_template('ability.html', ability = abilitiesData[name], type = typesData, move = movesData, pokemon = data, data = data)
 
 @app.route('/')
 def index():
