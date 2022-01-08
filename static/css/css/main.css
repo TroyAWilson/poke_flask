@@ -300,8 +300,6 @@ tbody{
 
 
 
-
-
 .ice-type{
     background-color: #6cf;
 }
@@ -372,3 +370,29 @@ tbody{
 .normal-type{
     background-color: #aa9;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 1024px) {
+    
+    body{
+        margin: 0 20%;
+    }
+
+    .stats-and-defense-container{
+        display: flex;
+        justify-content: center;
+    }
+    .pokedex-entry-container{
+        margin: 0 10%;
+    }
+  }
