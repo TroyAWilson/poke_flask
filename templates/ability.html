@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1 class='capitalize'>{{ability['name']}}</h1>
+
+    <h3>Effect</h3>
+    <p>{{ability['effect']}}</p>
+
+    <h3>Game Descriptions</h3>
+    <div>
+        {% for i in ability['flavor-text'] %}
+        <div class = 'item-version-description'>
+            <p>{{i['version'].replace('-',' ')}} </p>
+            <p>{{i['text']}} </p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h3>Pokemon of with {{ability['name'].replace('-',' ')}}</h3>
+        <div>
+            {%for item in ability['pokemon-who-have']%}
+                {% for p in pokemon %}
+                    {% if item['name'] == p['name'] and item['is_hidden'] == False %}
+                        <div class="pokemon-of-type-container">
+                            <a href="/pokemon/{{p['id']}}">
+                                <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{p['id']}}.png">
+                                <p>{{p['name']}}</p>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+    <h3>Pokemon of with {{ability['name'].replace('-',' ')}} as a hidden ability</h3>
+        <div>
+            {%for item in ability['pokemon-who-have']%}
+                {% for p in pokemon %}
+                    {% if item['name'] == p['name'] and item['is_hidden'] == True %}
+                        <div class="pokemon-of-type-container">
+                            <a href="/pokemon/{{p['id']}}">
+                                <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{p['id']}}.png">
+                                <p>{{p['name']}}</p>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+{% endblock %}

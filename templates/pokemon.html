@@ -71,9 +71,13 @@
             <div class="pokeabilities">
                 {% for item in Pokemon['abilities'] %}
                     {% if item['is_hidden'] == True %}
-                        <p>{{item['ability']['name'].replace('-',' ')}} <span>(H.A.)</span></p>
+                        <a href="/ability/{{item['ability']['name']}}">
+                            <p>{{item['ability']['name'].replace('-',' ')}} <span>(H.A.)</span></p>
+                        </a>
                     {% else %}
-                        <p>{{item['ability']['name'].replace('-',' ')}}</p>
+                        <a href="/ability/{{item['ability']['name']}}">
+                            <p>{{item['ability']['name'].replace('-',' ')}}</p>
+                        </a>
                     {% endif %}
                 {% endfor %}
             </div>
@@ -107,14 +111,30 @@
     <h3>Stats</h3>
     <div class="pokestats">
         {% for item in Pokemon['stats'] %}
-            {% if item['base_stat'] < 60 %}
-                <p class="stat-title">{{item['stat']['name']}} : <span style="color:red">{{item['base_stat']}}</span></p>
+            {% if item['base_stat'] < 30 %}
+                <div class='pokestat-individual-container'>
+                    <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line very-low'></div> <span style="color:#f34444; margin:auto;">{{item['base_stat']}}</span></p>
+                </div>
+            {% elif item['base_stat'] < 60 %}
+                <div class='pokestat-individual-container'>
+                    <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line low' ></div> <span style="color:#ff7f0f; margin:auto;">{{item['base_stat']}}</span></p>
+                </div>
             {% elif item['base_stat'] < 90 %}
-                <p class="stat-title">{{item['stat']['name']}} : <span style="color:orange">{{item['base_stat']}}</span></p>
+                <div class='pokestat-individual-container'>
+                    <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line low-mid' ></div> <span style="color:#ffdd57; margin:auto;">{{item['base_stat']}}</span></p>
+                </div>
             {% elif item['base_stat'] < 125 %}
-                <p class="stat-title">{{item['stat']['name']}} : <span style="color:green">{{item['base_stat']}}</span></p>
+                <div class='pokestat-individual-container'>
+                    <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line mid' ></div> <span style="color:#a0e515; margin:auto;">{{item['base_stat']}}</span></p>
+                </div>
+            {% elif item['base_stat'] < 200 %}
+                <div class='pokestat-individual-container'>
+                    <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line high' ></div>  <span style="color:#23cd5e; margin:auto;">{{item['base_stat']}}</span></p>
+                </div>
             {% else %}
-                <p class="stat-title">{{item['stat']['name']}} :  <span style="color:cyan">{{item['base_stat']}}</span></p>
+                <div class='pokestat-individual-container'>
+                    <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line very-high' ></div>  <span style="color:#00c2b8; margin:auto;">{{item['base_stat']}}</span></p>
+                </div>
             {% endif %}
         {% endfor %}
     </div>
@@ -273,26 +293,24 @@
     
     <h4>Level Up Moves</h4>
         <div class = 'singleLevelUpMoveContainer'>
-            <p>lvl.</p>
             <p>Move</p>
             <p>Type</p>
+            <p>lvl.</p>
             <p>Cat.</p>
             <p>Power</p>
-            <p>PP</p>
         </div>
         {% for item in Pokemon['moves'] %}
             {% if item['move_learn_method'] == 'level-up' %}
                 <div class = 'singleLevelUpMoveContainer'>
-                    <p> {{item['level_learned_at']}}</p>
                     <a href="/move/{{item['name']}}">
                         <p> {{item['name'].replace('-',' ')}} </p>
                     </a>
                     <a href="/type/{{item['type']}}">
                         <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
-                    </a>                    
+                    </a>    
+                    <p> {{item['level_learned_at']}}</p>
                     <p> {{item['damage_class']}} </p>
                     <p> {{item['power']}} </p>
-                    <p> {{item['pp']}} </p>
                 </div>
             {% endif %}
         {% endfor %}
@@ -303,7 +321,6 @@
         <p>Type</p>
         <p>Cat.</p>
         <p>Power</p>
-        <p>PP</p>
     </div>
     {% for item in Pokemon['moves'] %}
         {% if item['move_learn_method'] == 'egg' %}
@@ -316,7 +333,6 @@
                 </a>                
                 <p> {{item['damage_class']}} </p>
                 <p> {{item['power']}} </p>
-                <p> {{item['pp']}} </p>
             </div>
         {% endif %}
     {% endfor %}
@@ -328,7 +344,6 @@
         <p>Type</p>
         <p>Cat.</p>
         <p>Power</p>
-        <p>PP</p>
     </div>
     {% for item in Pokemon['moves'] %}
         {% if item['move_learn_method'] == 'machine' %}
@@ -341,7 +356,6 @@
                 </a>
                 <p> {{item['damage_class']}} </p>
                 <p> {{item['power']}} </p>
-                <p> {{item['pp']}} </p>
             </div>
         {% endif %}
     {% endfor %}
