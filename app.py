@@ -10,7 +10,7 @@ app = Flask(__name__)
 def loadRandomPokemonBatch():
     batch = []
     used = []
-    for p in range(24):
+    for p in range(48):
         rand = random.randint(0,897)
         while(rand in used):
             rand = random.randint(0,897)
