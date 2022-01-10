@@ -38,7 +38,11 @@ tbody{
     display:flex;
     flex-direction: column;
 }
+.header-container{
+    background-color: white;
+    padding: 25px;
 
+}
 .next-prev-container{
     display: flex;
     justify-content: space-between;
@@ -52,7 +56,7 @@ tbody{
 .pokemon-links-container{
     display: flex;
     justify-content: center;
-    padding: 0 20%;
+    padding: 1% 20%;
     flex-wrap: wrap;
     margin:2%;
     background-color: aliceblue;
@@ -225,15 +229,22 @@ tbody{
     max-width: 100%;
 }
 
+
+
+/* Pokedex Enteries */
+
 .pokemon-version-flavor{
     display: flex;
     text-align: left; 
-    margin:10px 20px;
+    padding:10px 20px;
+    border-bottom: 1px solid #d3d3d3;
 }
 
-.pokemon-version-flavor p{
-    font-size: 14px;
-    flex: 1;
+.pokedex-entries-version{
+    flex:1;
+}
+.pokedex-entries{
+    flex:2;
 }
 
 
@@ -406,8 +417,10 @@ tbody{
 
 @media only screen and (min-width: 1024px) {
     
-    body{
+    .body{
         margin: 0 20%;
+    }
+    body{
         background-color: whitesmoke;
     }
     footer{
@@ -415,6 +428,21 @@ tbody{
     }
     h1{
         margin:0;
+        font-size: 2.5em;
+    }
+    h2{
+        font-size: 2.5em;
+    }
+    h3{
+        text-align: start;
+        font-size: 1.75em;
+    }
+    h4{
+        font-size: 1.3em;
+        text-align: start;
+    }
+    .header-container{
+        border-bottom: 1px solid #d3d3d3;
     }
     .pokeTitleContainer{
         background-color: white;
@@ -423,8 +451,26 @@ tbody{
     .main-container{
         background-color: white;
         padding: 0 5%;
+        margin: 1%;
     }
     .next-prev-container{
+        margin:0;
+    }
+
+    .data-training-master-container{
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid #d3d3d3;
+        padding-bottom: 10%;
+        margin-bottom: 5%;
+    }
+    .pokedex-data-master-container, .training-master-conatiner{
+        flex:auto;
+    }
+    .pokedexDataContainer{
+        margin:0;
+    }
+    .trainingContainer{
         margin:0;
     }
     .pokestats{
@@ -437,12 +483,38 @@ tbody{
         display: flex;
         justify-content: center;
     }
+    .very-low{
+        background-color:#f34444;
+        width: 50px;
+    }
+    .low{
+        background-color:#ff7f0f;
+        width: 100px;
+    }
+    .low-mid{
+        background-color:#ffdd57;
+        width: 150px;
+    }
+    .mid{
+        background-color:#a0e515;
+        width: 200px;
+    }
+    .high{
+        background-color:#23cd5e;
+        width: 250px;
+    }
+    .very-high{
+        background-color:#00c2b8;
+        width: 300px;
+    }
     .type-defense-inner-container{
         background-color: white;
         max-width: 370px;
     }
+    .pokedex-entries{
+        flex:4;
+    }
     .singleLevelUpMoveContainer p {
         width: 150px;
     }
-
   }
