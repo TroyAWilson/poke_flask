@@ -322,77 +322,90 @@
         {% endfor %}
     </div>
 
+
     <h3 class ='capitalize' id = 'moves'>Moves learned by {{Pokemon['name']}}</h3>
     <!-- egg, machine-->
-    
-    <h4>Level Up Moves</h4>
-        <div class = 'singleLevelUpMoveContainer'>
-            <p>Move</p>
-            <p>Type</p>
-            <p>lvl.</p>
-            <p>Cat.</p>
-            <p>Power</p>
+<div class = 'all-moves-container'>
+    <div class = 'level-and-egg-moves-container'>
+        <div class = 'level-moves-container'>
+            <h4>Level Up Moves</h4>
+                <div class = 'singleLevelUpMoveContainer'>
+                    <p>Move</p>
+                    <p>Type</p>
+                    <p>lvl.</p>
+                    <p>Cat.</p>
+                    <p>Power</p>
+                </div>
+                {% for item in Pokemon['moves'] %}
+                    {% if item['move_learn_method'] == 'level-up' %}
+                        <div class = 'singleLevelUpMoveContainer'>
+                            <a href="/move/{{item['name']}}">
+                                <p> {{item['name'].replace('-',' ')}} </p>
+                            </a>
+                            <a href="/type/{{item['type']}}">
+                                <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
+                            </a>    
+                            <p> {{item['level_learned_at']}}</p>
+                            <p> {{item['damage_class']}} </p>
+                            <p> {{item['power']}} </p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
         </div>
+    <div class = 'level-moves-container'>
+
+    <h4>Egg Moves</h4>
+    
+    <div class = 'singleLevelUpMoveContainer'>
+        <p>Move</p>
+        <p>Type</p>
+        <p>Cat.</p>
+        <p>Power</p>
+    </div>
         {% for item in Pokemon['moves'] %}
-            {% if item['move_learn_method'] == 'level-up' %}
+            {% if item['move_learn_method'] == 'egg' %}
                 <div class = 'singleLevelUpMoveContainer'>
                     <a href="/move/{{item['name']}}">
                         <p> {{item['name'].replace('-',' ')}} </p>
-                    </a>
+                    </a>                
                     <a href="/type/{{item['type']}}">
                         <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
-                    </a>    
-                    <p> {{item['level_learned_at']}}</p>
+                    </a>                
                     <p> {{item['damage_class']}} </p>
                     <p> {{item['power']}} </p>
                 </div>
             {% endif %}
         {% endfor %}
-
-    <h4>Egg Moves</h4>
-    <div class = 'singleLevelUpMoveContainer'>
-        <p>Move</p>
-        <p>Type</p>
-        <p>Cat.</p>
-        <p>Power</p>
     </div>
-    {% for item in Pokemon['moves'] %}
-        {% if item['move_learn_method'] == 'egg' %}
-            <div class = 'singleLevelUpMoveContainer'>
-                <a href="/move/{{item['name']}}">
-                    <p> {{item['name'].replace('-',' ')}} </p>
-                </a>                
-                <a href="/type/{{item['type']}}">
-                    <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
-                </a>                
-                <p> {{item['damage_class']}} </p>
-                <p> {{item['power']}} </p>
-            </div>
-        {% endif %}
-    {% endfor %}
+</div>
 
-    <h4>TM Moves</h4>
-    <div class = 'singleLevelUpMoveContainer'>
-        <!-- Add TM number -->
-        <p>Move</p>
-        <p>Type</p>
-        <p>Cat.</p>
-        <p>Power</p>
+
+    <div class = 'level-moves-container'>
+        <h4>TM Moves</h4>
+        <div class = 'singleLevelUpMoveContainer'>
+            <!-- Add TM number -->
+            <p>Move</p>
+            <p>Type</p>
+            <p>Cat.</p>
+            <p>Power</p>
+        </div>
+        {% for item in Pokemon['moves'] %}
+            {% if item['move_learn_method'] == 'machine' %}
+                <div class = 'singleLevelUpMoveContainer'>
+                    <a href="/move/{{item['name']}}">
+                        <p> {{item['name'].replace('-',' ')}} </p>
+                    </a>                
+                    <a href="/type/{{item['type']}}">
+                        <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
+                    </a>
+                    <p> {{item['damage_class']}} </p>
+                    <p> {{item['power']}} </p>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
-    {% for item in Pokemon['moves'] %}
-        {% if item['move_learn_method'] == 'machine' %}
-            <div class = 'singleLevelUpMoveContainer'>
-                <a href="/move/{{item['name']}}">
-                    <p> {{item['name'].replace('-',' ')}} </p>
-                </a>                
-                <a href="/type/{{item['type']}}">
-                    <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
-                </a>
-                <p> {{item['damage_class']}} </p>
-                <p> {{item['power']}} </p>
-            </div>
-        {% endif %}
-    {% endfor %}
+</div>
+
 
     <h3>Shiny Sprite</h3>
     <img class='shinypokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/{{Pokemon['id']}}.png">
