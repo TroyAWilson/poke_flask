@@ -21,12 +21,32 @@
         </div>
     </div>
 
+    <div class = 'pokemon-links-container'>
+        <a href='#info'>
+            <p>Info</p>
+        </a>
+        <a href='#stats'>
+            <p>Stats</p>
+        </a>
+        <a href='#evolutionLine'>
+            <p>Evolution Line</p>
+        </a>
+        <a href='#pokedexEntries'>
+            <p>Pokedex Enteries</p>
+        </a>
+        <a href='#moves'>
+            <p>Moves Learned</p>
+        </a>
+    </div>
+
     <h2 class='pokename'>{{Pokemon['name']}}</h2>
+
+    <div>
     <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['id']}}.png">
 
 
 
-    <h3> Pokedex Data </h3>
+    <h3 id = 'info'> Pokedex Data </h3>
 
     <div class="pokedexDataContainer">
         <div class="pokedexsubfield">
@@ -107,73 +127,76 @@
             <p>{{Pokemon['growth_rate']['name'].replace('-',' ')}}</p>
         </div>
     </div>
+</div>
 
-
-<div class = 'stats-and-defense-container'> 
-
-    <h3>Stats</h3>
-    <div style='display:flex; justify-content:center;'>
-        <div class="pokestats">
-            {% for item in Pokemon['stats'] %}
-                {% if item['base_stat'] < 30 %}
-                    <div class='pokestat-individual-container'>
-                        <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line very-low'></div> <span style="color:#f34444; margin:auto;">{{item['base_stat']}}</span></p>
-                    </div>
-                {% elif item['base_stat'] < 60 %}
-                    <div class='pokestat-individual-container'>
-                        <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line low' ></div> <span style="color:#ff7f0f; margin:auto;">{{item['base_stat']}}</span></p>
-                    </div>
-                {% elif item['base_stat'] < 90 %}
-                    <div class='pokestat-individual-container'>
-                        <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line low-mid' ></div> <span style="color:#ffdd57; margin:auto;">{{item['base_stat']}}</span></p>
-                    </div>
-                {% elif item['base_stat'] < 125 %}
-                    <div class='pokestat-individual-container'>
-                        <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line mid' ></div> <span style="color:#a0e515; margin:auto;">{{item['base_stat']}}</span></p>
-                    </div>
-                {% elif item['base_stat'] < 200 %}
-                    <div class='pokestat-individual-container'>
-                        <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line high' ></div>  <span style="color:#23cd5e; margin:auto;">{{item['base_stat']}}</span></p>
-                    </div>
-                {% else %}
-                    <div class='pokestat-individual-container'>
-                        <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line very-high' ></div>  <span style="color:#00c2b8; margin:auto;">{{item['base_stat']}}</span></p>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-
-    <h3>Type Defenses</h3>
-    <div class = 'type-defense-container'>
-        <div style= 'display:flex; flex-wrap:wrap; justify-content:center; padding:5%; margin:1%; background-color:#F8F7FF'>
-            {%for item in Pokemon['weaknessChart'] %}
-                <div style= 'border:1px solid black; margin:2px'>
-                    <a href="/type/{{item}}">
-                        <p style = 'color:black;' class = '{{item}}-type' style=' padding:4px; border-bottom: 1px solid black'>{{item[:3]}}</p>
-                    </a>
-                    {% if Pokemon['weaknessChart'][item] == 2 %}
-                        <p style='font-size:12px; background-color: #a40000; color: #ffdd57'>2x</p>
-                    {% elif Pokemon['weaknessChart'][item] == 4 %}
-                        <p style='font-size:12px; background-color: #7c0000; color: #ffdd57'>4x</p>
-                    {% elif Pokemon['weaknessChart'][item] == -2 %}
-                        <p style='font-size:12px; background-color: #4e9a06; color: #ffdd57'>&#189;</p>
-                    {% elif Pokemon['weaknessChart'][item] == -4 %}
-                        <p style='font-size:12px; background-color: #73d216; color: #ffdd57'>&#188;</p>
-                    {% elif Pokemon['weaknessChart'][item] < -5 %}
-                         <p style='font-size:12px; background-color: #2e3436; color: #ffdd57'>-</p>
+<div id = 'stats' class = 'stats-and-defense-container'> 
+    <div>
+        <h3>Stats</h3>
+        <div style='display:flex; justify-content:center;'>
+            <div class="pokestats">
+                {% for item in Pokemon['stats'] %}
+                    {% if item['base_stat'] < 30 %}
+                        <div class='pokestat-individual-container'>
+                            <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line very-low'></div> <span style="color:#f34444; margin:auto;">{{item['base_stat']}}</span></p>
+                        </div>
+                    {% elif item['base_stat'] < 60 %}
+                        <div class='pokestat-individual-container'>
+                            <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line low' ></div> <span style="color:#ff7f0f; margin:auto;">{{item['base_stat']}}</span></p>
+                        </div>
+                    {% elif item['base_stat'] < 90 %}
+                        <div class='pokestat-individual-container'>
+                            <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line low-mid' ></div> <span style="color:#ffdd57; margin:auto;">{{item['base_stat']}}</span></p>
+                        </div>
+                    {% elif item['base_stat'] < 125 %}
+                        <div class='pokestat-individual-container'>
+                            <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line mid' ></div> <span style="color:#a0e515; margin:auto;">{{item['base_stat']}}</span></p>
+                        </div>
+                    {% elif item['base_stat'] < 200 %}
+                        <div class='pokestat-individual-container'>
+                            <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line high' ></div>  <span style="color:#23cd5e; margin:auto;">{{item['base_stat']}}</span></p>
+                        </div>
                     {% else %}
-                        <p style='font-size:12px'>{{Pokemon['weaknessChart'][item]}}</p>
+                        <div class='pokestat-individual-container'>
+                            <p class="stat-title">{{item['stat']['name']}} : <div class = 'stat-line very-high' ></div>  <span style="color:#00c2b8; margin:auto;">{{item['base_stat']}}</span></p>
+                        </div>
                     {% endif %}
-                </div>    
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+
+    <div>
+        <h3>Type Defenses</h3>
+        <div class = 'type-defense-container'>
+            <div class = 'type-defense-inner-container'>
+                {%for item in Pokemon['weaknessChart'] %}
+                    <div style= 'border:1px solid black; margin:2px'>
+                        <a href="/type/{{item}}">
+                            <p style = 'color:black;' class = '{{item}}-type' style=' padding:4px; border-bottom: 1px solid black'>{{item[:3]}}</p>
+                        </a>
+                        {% if Pokemon['weaknessChart'][item] == 2 %}
+                            <p style='font-size:12px; background-color: #a40000; color: #ffdd57'>2x</p>
+                        {% elif Pokemon['weaknessChart'][item] == 4 %}
+                            <p style='font-size:12px; background-color: #7c0000; color: #ffdd57'>4x</p>
+                        {% elif Pokemon['weaknessChart'][item] == -2 %}
+                            <p style='font-size:12px; background-color: #4e9a06; color: #ffdd57'>&#189;</p>
+                        {% elif Pokemon['weaknessChart'][item] == -4 %}
+                            <p style='font-size:12px; background-color: #73d216; color: #ffdd57'>&#188;</p>
+                        {% elif Pokemon['weaknessChart'][item] < -5 %}
+                            <p style='font-size:12px; background-color: #2e3436; color: #ffdd57'>-</p>
+                        {% else %}
+                            <p style='font-size:12px'>{{Pokemon['weaknessChart'][item]}}</p>
+                        {% endif %}
+                    </div>    
+                {% endfor %}
+        </div>
+    </div>
+</div>
 
 </div> 
     
 
-    <h3>Evolution Line</h3>
+    <h3 id = 'evolutionLine'>Evolution Line</h3>
     <div class = 'evolutionContainer'>
         
         <div style="margin: auto 0;">
@@ -286,7 +309,7 @@
     </div>
 
 
-    <h3>Pokedex Entery</h3>
+    <h3 id = 'pokedexEntries'>Pokedex Entery</h3>
     <div style='background-color: #F8F7FF' class='pokedex-entry-container'>
         {% for i in Pokemon['flavor_text_entries'] %}
         <div class = 'pokemon-version-flavor'>
@@ -296,7 +319,7 @@
         {% endfor %}
     </div>
 
-    <h3>Moves</h3>
+    <h3 id = 'moves'>Moves</h3>
     <!-- egg, machine-->
     
     <h4>Level Up Moves</h4>
@@ -384,4 +407,5 @@
             </a>
         </div>
     </div>
+
 {% endblock %}

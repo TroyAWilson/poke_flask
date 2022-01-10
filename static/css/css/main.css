@@ -49,6 +49,15 @@ tbody{
     display: flex;
 }
 
+.pokemon-links-container{
+    display: flex;
+    justify-content: center;
+    padding: 0 20%;
+    flex-wrap: wrap;
+    margin:2%;
+    background-color: aliceblue;
+}
+
 .pokeTitleContainer{
     display: flex;
     align-items: center;
@@ -240,7 +249,7 @@ tbody{
 }
 
 .singleLevelUpMoveContainer p {
-    width: 100px;
+    width: 55px;
     margin: 3px;
 }
 
@@ -374,12 +383,22 @@ tbody{
     background-color: #aa9;
 }
 
+.footer-space{
+    height: 25px;
+    background-color: #818589;
+}
 
 
 
 
-
-
+.type-defense-inner-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding:5%; 
+    margin:1%; 
+    background-color:#F8F7FF
+}
 
 
 
@@ -389,13 +408,41 @@ tbody{
     
     body{
         margin: 0 20%;
+        background-color: whitesmoke;
     }
-
+    footer{
+        margin-top: 0;
+    }
+    h1{
+        margin:0;
+    }
+    .pokeTitleContainer{
+        background-color: white;
+    }
+  
+    .main-container{
+        background-color: white;
+        padding: 0 5%;
+    }
+    .next-prev-container{
+        margin:0;
+    }
+    .pokestats{
+        text-align: left;
+    }
+    .stat-title{
+        width: max-content;
+    }
     .stats-and-defense-container{
         display: flex;
         justify-content: center;
     }
-    .pokedex-entry-container{
-        margin: 0 10%;
+    .type-defense-inner-container{
+        background-color: white;
+        max-width: 370px;
     }
+    .singleLevelUpMoveContainer p {
+        width: 150px;
+    }
+
   }
