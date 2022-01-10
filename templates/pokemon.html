@@ -41,93 +41,96 @@
 
     <h2 class='pokename'>{{Pokemon['name']}}</h2>
 
-    <div>
     <img class='pokeimage' src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{Pokemon['id']}}.png">
 
 
+    <div class='data-training-master-container'>
+        <div class='pokedex-data-master-container'>
+            <h3 id = 'info'> Pokedex Data </h3>
 
-    <h3 id = 'info'> Pokedex Data </h3>
+            <div class="pokedexDataContainer">
+                <div class="pokedexsubfield">
+                    <p>National Dex #:</p>
+                    <p>{{Pokemon['id']}}</p>
+                </div>
 
-    <div class="pokedexDataContainer">
-        <div class="pokedexsubfield">
-            <p>National Dex #:</p>
-            <p>{{Pokemon['id']}}</p>
-        </div>
+                <div class="pokedexsubfield">
+                    <p>Species:</p>
+                    <p>{{Pokemon['species']}}</p>
+                </div>
 
-        <div class="pokedexsubfield">
-            <p>Species:</p>
-            <p>{{Pokemon['species']}}</p>
-        </div>
+                <div class="pokedexsubfield">
+                    <p>Height:</p>
+                    <p>{{Pokemon['height']}}</p>
+                </div>
 
-        <div class="pokedexsubfield">
-            <p>Height:</p>
-            <p>{{Pokemon['height']}}</p>
-        </div>
+                <div class="pokedexsubfield">
+                    <p>Weight:</p>
+                    <p>{{Pokemon['weight']}}</p>
+                </div>
 
-        <div class="pokedexsubfield">
-            <p>Weight:</p>
-            <p>{{Pokemon['weight']}}</p>
-        </div>
+                <div class="pokedexsubfield">
+                    <p>Egg Group:</p>
+                    {% for item in Pokemon['egg_groups'] %}
+                        <p>{{item['name']}}</p>
+                    {% endfor %}
+                </div>
 
-        <div class="pokedexsubfield">
-            <p>Egg Group:</p>
-            {% for item in Pokemon['egg_groups'] %}
-                <p>{{item['name']}}</p>
-            {% endfor %}
-        </div>
-
-        <div class="pokedexsubfield">
-            <p>Type(s):</p>
-            {% for item in Pokemon['types'] %}
-                <a href="/type/{{item['type']['name']}}">
-                    <p style="color:black;" class = "{{item['type']['name']}}-type">{{item['type']['name']}}</p>
-                </a>
-            {% endfor %}
-        </div>
-
-
-        <div class="pokedexsubfield">
-            <p>Abilities:</p>
-            <div class="pokeabilities">
-                {% for item in Pokemon['abilities'] %}
-                    {% if item['is_hidden'] == True %}
-                        <a href="/ability/{{item['ability']['name']}}">
-                            <p>{{item['ability']['name'].replace('-',' ')}} <span>(H.A.)</span></p>
+                <div class="pokedexsubfield">
+                    <p>Type(s):</p>
+                    {% for item in Pokemon['types'] %}
+                        <a href="/type/{{item['type']['name']}}">
+                            <p style="color:black;" class = "{{item['type']['name']}}-type">{{item['type']['name']}}</p>
                         </a>
-                    {% else %}
-                        <a href="/ability/{{item['ability']['name']}}">
-                            <p>{{item['ability']['name'].replace('-',' ')}}</p>
-                        </a>
-                    {% endif %}
-                {% endfor %}
+                    {% endfor %}
+                </div>
+
+
+                <div class="pokedexsubfield">
+                    <p>Abilities:</p>
+                    <div class="pokeabilities">
+                        {% for item in Pokemon['abilities'] %}
+                            {% if item['is_hidden'] == True %}
+                                <a href="/ability/{{item['ability']['name']}}">
+                                    <p>{{item['ability']['name'].replace('-',' ')}} <span>(H.A.)</span></p>
+                                </a>
+                            {% else %}
+                                <a href="/ability/{{item['ability']['name']}}">
+                                    <p>{{item['ability']['name'].replace('-',' ')}}</p>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
             </div>
         </div>
 
+        <div class='training-master-conatiner'>
+            <h3>Training</h3>
+            <div class = "trainingContainer">
+                <div class="pokedexsubfield">
+                    <p>Catch Rate:</p>
+                    <p>{{Pokemon['catch_rate']}}</p>
+                </div>
+
+                <div class="pokedexsubfield">
+                    <p>Base Happiness:</p>
+                    <p>{{Pokemon['base_happiness']}}</p>
+                </div>
+
+                <div class="pokedexsubfield">
+                    <p>Base Experience:</p>
+                    <p>{{Pokemon['base_experience']}}</p>
+                </div>
+
+                <div class="pokedexsubfield">
+                    <p>Growth Rate:</p>
+                    <p>{{Pokemon['growth_rate']['name'].replace('-',' ')}}</p>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <h3>Training</h3>
-    <div class = "trainingContainer">
-        <div class="pokedexsubfield">
-            <p>Catch Rate:</p>
-            <p>{{Pokemon['catch_rate']}}</p>
-        </div>
-
-        <div class="pokedexsubfield">
-            <p>Base Happiness:</p>
-            <p>{{Pokemon['base_happiness']}}</p>
-        </div>
-
-        <div class="pokedexsubfield">
-            <p>Base Experience:</p>
-            <p>{{Pokemon['base_experience']}}</p>
-        </div>
-
-        <div class="pokedexsubfield">
-            <p>Growth Rate:</p>
-            <p>{{Pokemon['growth_rate']['name'].replace('-',' ')}}</p>
-        </div>
-    </div>
-</div>
 
 <div id = 'stats' class = 'stats-and-defense-container'> 
     <div>
@@ -313,13 +316,13 @@
     <div style='background-color: #F8F7FF' class='pokedex-entry-container'>
         {% for i in Pokemon['flavor_text_entries'] %}
         <div class = 'pokemon-version-flavor'>
-            <p>{{i['version'].replace('-',' ')}} </p>
-            <p>{{i['text'].replace('\n',' ')}} </p>
+            <p class='pokedex-entries-version'>{{i['version'].replace('-',' ')}} </p>
+            <p class = 'pokedex-entries'>{{i['text'].replace('\n',' ')}} </p>
         </div>
         {% endfor %}
     </div>
 
-    <h3 id = 'moves'>Moves</h3>
+    <h3 class ='capitalize' id = 'moves'>Moves learned by {{Pokemon['name']}}</h3>
     <!-- egg, machine-->
     
     <h4>Level Up Moves</h4>

@@ -17,7 +17,7 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-    <div style = 'background-color:white; padding: 25px'>
+    <div class = 'header-container'>
     <a name = 'top' href="{{ url_for('index')}}">
         <div class='pokeTitleContainer'>
             <img src="{{ url_for('static', filename='css/images/pokemon_egg.ico') }}" alt="">
@@ -44,10 +44,12 @@
         });
     </script>
 
+    <div class = 'body'>
     <div class = 'main-container'>
     {% block body %}
    
     {% endblock %}
+    </div>
     </div>
 </body>
 <footer >
