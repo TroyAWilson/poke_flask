@@ -1,3 +1,20 @@
-# poke_flask or PokéInfo
+# PokéInfo
 
-a small web app powered by Flask with the sole purpose of practicing with python frameworks
+## The app can be viewed [live]() (link is currently inactive)
+
+<p> PokéInfo is a web app that allows users to search for information regarding the various Pokémon titles </p>
+
+<p> Primary Tools used: </p>
+
+<ul>
+  <li> Python </li>
+  <li> Flask w/ Jinja </li>
+  <li> HTML </li>
+  <li> CSS </li>
+  <li> JavaScript w/ jQuery </li>
+</ul>
+
+<p>PokéInfo can be ran from the command line with the command:</p> 
+
+> python app.py
+
