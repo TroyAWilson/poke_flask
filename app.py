@@ -5,6 +5,28 @@ import requests
 import json
 import random
 
+
+f = open('pokemon.json')
+print('loading json file')
+data = json.load(f)
+f.close() 
+
+g = open('moves.json')
+movesData = json.load(g)
+g.close()
+
+i = open('items.json')
+itemsData = json.load(i)
+i.close() 
+
+t = open('types.json')
+typesData = json.load(t)
+t.close() 
+
+a = open('abilities.json')
+abilitiesData = json.load(a)
+a.close()
+
 app = Flask(__name__)
 
 def loadRandomPokemonBatch():
@@ -597,8 +619,6 @@ def gatherAbilities():
 
 if __name__ == '__main__':
     print('starting PokeInfo')
-
-    # gatherMoves()
 
     f = open('pokemon.json')
     print('loading json file')
