@@ -1,6 +1,6 @@
 # PokéInfo
 
-## The app can be viewed [live]() (link is currently inactive)
+## The app can be viewed [live](https://pokeinfoapp.herokuapp.com/)
 
 <p> PokéInfo is a web app that allows users to search for information regarding the various Pokémon titles </p>
 
