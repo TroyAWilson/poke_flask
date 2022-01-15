@@ -182,17 +182,17 @@
                             <p style = 'color:black;' class = '{{item}}-type' style=' padding:4px; border-bottom: 1px solid black'>{{item[:3]}}</p>
                         </a>
                         {% if Pokemon['weaknessChart'][item] == 2 %}
-                            <p style='font-size:12px; background-color: #a40000; color: #ffdd57'>2x</p>
+                            <p class = "type-defense-relative type-defense-2x">2x</p>
                         {% elif Pokemon['weaknessChart'][item] == 4 %}
-                            <p style='font-size:12px; background-color: #7c0000; color: #ffdd57'>4x</p>
+                            <p class = "type-defense-relative type-defense-4x">4x</p>
                         {% elif Pokemon['weaknessChart'][item] == -2 %}
-                            <p style='font-size:12px; background-color: #4e9a06; color: #ffdd57'>&#189;</p>
+                            <p class = "type-defense-relative type-defense-half">&#189;</p>
                         {% elif Pokemon['weaknessChart'][item] == -4 %}
-                            <p style='font-size:12px; background-color: #73d216; color: #ffdd57'>&#188;</p>
+                            <p class = "type-defense-relative type-defense-quarter">&#188;</p>
                         {% elif Pokemon['weaknessChart'][item] < -5 %}
-                            <p style='font-size:12px; background-color: #2e3436; color: #ffdd57'>-</p>
+                            <p class = "type-defense-relative type-defense-immune">0</p>
                         {% else %}
-                            <p style='font-size:12px'>{{Pokemon['weaknessChart'][item]}}</p>
+                            <p class = "type-defense-relative">-</p>
                         {% endif %}
                     </div>    
                 {% endfor %}
@@ -334,22 +334,22 @@
         <div class = 'level-moves-container'>
             <h4>Level Up Moves</h4>
                 <div class = 'singleLevelUpMoveContainer'>
+                    <p>lvl.</p>
                     <p>Move</p>
                     <p>Type</p>
-                    <p>lvl.</p>
                     <p>Cat.</p>
                     <p>Power</p>
                 </div>
                 {% for item in Pokemon['moves'] %}
                     {% if item['move_learn_method'] == 'level-up' %}
                         <div class = 'singleLevelUpMoveContainer'>
+                            <p> {{item['level_learned_at']}}</p>
                             <a href="/move/{{item['name']}}">
                                 <p> {{item['name'].replace('-',' ')}} </p>
                             </a>
                             <a href="/type/{{item['type']}}">
                                 <p style="color:black;" class="{{item['type']}}-type"> {{item['type']}} </p>
                             </a>    
-                            <p> {{item['level_learned_at']}}</p>
                             <p> {{item['damage_class']}} </p>
                             <p> {{item['power']}} </p>
                         </div>

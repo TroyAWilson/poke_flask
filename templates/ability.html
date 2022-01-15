@@ -30,6 +30,13 @@
                                 <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{p['id']}}.png">
                                 <p>{{p['name']}}</p>
                             </a>
+                            {% if p['egg_groups'] %}
+                                {% for i in p['egg_groups'] %}
+                                    <p class='ability-pokemon-egg-groups'>{{i['name'].replace('-',' ')}}</p>
+                                {% endfor %}
+                            {% else %}
+                                <p class='ability-pokemon-egg-groups'>Missing egg info</p>
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -46,6 +53,13 @@
                                 <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{p['id']}}.png">
                                 <p>{{p['name']}}</p>
                             </a>
+                            {% if p['egg_groups'] %}
+                                {% for i in p['egg_groups'] %}
+                                    <p class='ability-pokemon-egg-groups'>{{i['name'].replace('-',' ')}}</p>
+                                {% endfor %}
+                            {% else %}
+                                <p class='ability-pokemon-egg-groups'>Missing egg info</p>
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}
