@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+    <title> {{egg.capitalize()}} Egg Group</title> 
+{% endblock %}
+
+{% block body %}
+    <h1 class='capitalize'>{{egg.replace('-', ' ')}} Egg Group</h1>
+    <p> ({{number_of_mons }} Pokémon in this egg group) </p>
+
+    {% for item in groupList %}
+        {% for p in pokemon %}
+            {% if item['name'] == p['name'] %}
+                <div class="move-learned-pokemon-container">
+                    <a href="/pokemon/{{p['id']}}">
+                        <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{p['id']}}.png">
+                        <p>{{p['name']}}</p>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor%}
+    
+{% endblock %}

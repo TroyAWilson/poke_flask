@@ -41,6 +41,7 @@ def loadRandomPokemonBatch():
         used.append(rand)
     return batch
 
+
 @app.route('/move/<name>')
 def moveByName(name = None):
     return render_template('move.html', move = movesData[name], pokemon = data, data = data)
@@ -56,6 +57,16 @@ def typeByName(name = None):
 @app.route('/ability/<name>')
 def abilityByName(name = None):
     return render_template('ability.html', ability = abilitiesData[name], type = typesData, move = movesData, pokemon = data, data = data)
+
+@app.route('/egg/<name>')
+def eggGroupByName(name = None):
+    groupList = []
+    for i in data:
+        for j in i['egg_groups']:
+            if j['name'] == name:
+                groupList.append(i)
+    return render_template('egg.html', number_of_mons = len(groupList) ,egg = name, groupList = groupList, pokemon = data, data = data)
+
 
 @app.route('/')
 def index():
@@ -240,27 +251,6 @@ def setUpEvolutionLines(ev_chain):
 
 
     return evChain
-
-
-
-def testEmAll():
-    Pokemon=[]
-    print('collecting pokemon')
-
-    for i in range(90,899):
-        pokemonMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon/{i}').json()
-        pokemonSpeciesMassInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon-species/{i}').json()
-        print(f"Pokemon ID: {pokemonMassInfo['id']}")
-        ev_chain = requests.get(pokemonSpeciesMassInfo['evolution_chain']['url']).json()
-
-        evChain = setUpEvolutionLines(ev_chain)
-
-        print(evChain)
-
-
-
-
-# You need to fix the evolution line on the pokemon html page
 
 def grabEmAll():
     print('Gathering Pokemon')
@@ -619,26 +609,4 @@ def gatherAbilities():
 
 if __name__ == '__main__':
     print('starting PokeInfo')
-
-    f = open('pokemon.json')
-    print('loading json file')
-    data = json.load(f)
-    f.close() 
-    
-    g = open('moves.json')
-    movesData = json.load(g)
-    g.close()
-
-    i = open('items.json')
-    itemsData = json.load(i)
-    i.close() 
-
-    t = open('types.json')
-    typesData = json.load(t)
-    t.close() 
-
-    a = open('abilities.json')
-    abilitiesData = json.load(a)
-    a.close()
-
     app.run(host="0.0.0.0")

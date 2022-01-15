@@ -72,7 +72,9 @@
                 <div class="pokedexsubfield">
                     <p>Egg Group:</p>
                     {% for item in Pokemon['egg_groups'] %}
-                        <p>{{item['name']}}</p>
+                        <a href="/egg/{{item['name']}}">
+                            <p>{{item['name'].replace('-', ' ')}}</p>
+                        </a>
                     {% endfor %}
                 </div>
 
