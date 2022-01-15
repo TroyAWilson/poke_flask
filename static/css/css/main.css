@@ -209,6 +209,31 @@ tbody{
 }
 
 
+.type-defense-relative{
+    font-size:12px;
+}
+.type-defense-2x{
+    background-color: #a40000;
+    color: #ffdd57
+}
+.type-defense-4x{
+    background-color: #7c0000;
+    color: #ffdd57
+}
+.type-defense-half{
+    background-color: #4e9a06;
+    color: #ffdd57
+}
+.type-defense-quarter{
+    background-color: #73d216;
+    color: #ffdd57
+}
+.type-defense-immune{
+    background-color: #2e3436;
+    color: #ffdd57
+}
+
+
 
 /* Evolution Section */
 .evolutionContainer{
@@ -261,6 +286,7 @@ tbody{
 .singleLevelUpMoveContainer p {
     width: 55px;
     margin: 3px;
+    overflow: auto;
 }
 
 .all-moves-container{
@@ -328,7 +354,11 @@ tbody{
 
 
 
-
+.ability-pokemon-egg-groups{
+    display:inline; 
+    padding:0; 
+    font-size:12px;
+}
 
 
 
