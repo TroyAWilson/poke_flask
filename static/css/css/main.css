@@ -351,6 +351,20 @@ tbody{
     justify-content: center;
     flex-wrap: wrap;
 }
+.type-gymleader-master-container{
+    display:flex;
+    justify-content:center; 
+    align-items:center; 
+    flex-wrap:wrap;
+}
+.type-gymleader-individual-container{
+    margin:5%;
+}
+
+.type-gymleader-individual-container-small-text{
+    font-size: 14px;
+    color: #727272;
+}
 
 
 
@@ -562,6 +576,10 @@ tbody{
     }
     .singleLevelUpMoveContainer p {
         width: 4.4em;
+    }
+
+    .type-gymleader-master-container{
+        justify-content: center;
     }
   }
 
