@@ -68,6 +68,20 @@
 
 
 
+<h3>Significant Trainers</h3>
+
+    <div class = 'type-gymleader-master-container'>
+        {% for item in gymLeaders %}
+            <div class = 'type-gymleader-individual-container'>
+                <img src="{{ url_for('static', filename='css/images/gymLeaderImages/' + item["name"] + '-' + item['version'] + '.png') }}" alt="">                    
+                <p>{{item['name'].replace('-',' ')}}</p>
+                <p class='type-gymleader-individual-container-small-text'> {{item['location'].replace('-',' ')}} </p>
+                <p class='type-gymleader-individual-container-small-text'> {{item['version'].replace('-',' ')}} </p>
+            </div>
+        {% endfor %}
+    </div>
+
+
 
 
 <h3>Pokemon of Type</h3>

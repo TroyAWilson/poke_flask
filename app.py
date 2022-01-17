@@ -27,6 +27,10 @@ a = open('abilities.json')
 abilitiesData = json.load(a)
 a.close()
 
+l = open('gymLeaders.json')
+gymLeadersData = json.load(l)
+l.close()
+
 app = Flask(__name__)
 
 def loadRandomPokemonBatch():
@@ -52,7 +56,22 @@ def itemByName(name = None):
 
 @app.route('/type/<name>')
 def typeByName(name = None):
-    return render_template('type.html', type = typesData[name], move = movesData, pokemon = data, data = data)
+
+    leaders_of_type = {} #this is pretty much just used for filtering for repeats
+    out = []
+    for i in gymLeadersData:
+        if gymLeadersData[i]['primary-typing'] == name:
+            for j in gymLeadersData[i]['versions']:
+                leader = {
+                        'name':j['leader-name'],
+                        'location':j['location'],
+                        'version': j['version-name']
+                }
+                if j['version-name'] not in leaders_of_type:
+                    leaders_of_type[j['version-name']] = leader
+                    out.append(leader)
+                
+    return render_template('type.html', type = typesData[name], gymLeaders = out, move = movesData, pokemon = data, data = data)
 
 @app.route('/ability/<name>')
 def abilityByName(name = None):
