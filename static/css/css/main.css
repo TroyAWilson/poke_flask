@@ -38,6 +38,11 @@ tbody{
     display:flex;
     flex-direction: column;
 }
+
+.dark-anchor{
+    color:black;
+}
+
 .header-container{
     background-color: white;
     padding: 25px;
@@ -353,13 +358,14 @@ tbody{
 }
 .type-gymleader-master-container{
     display:flex;
-    justify-content:center; 
+    justify-content:space-around; 
     align-items:center; 
     flex-wrap:wrap;
 }
 .type-gymleader-individual-container{
-    margin:5%;
+    margin:3%;
 }
+
 
 .type-gymleader-individual-container-small-text{
     font-size: 14px;
@@ -375,6 +381,53 @@ tbody{
 }
 
 
+
+.trainer-info-names-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.trainer-pokemon-moves-container{
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid darkgrey;
+    align-items: flex-end;
+}
+
+.trainer-image{
+    margin: 15px 25px;
+}
+
+.reveal-button{
+    background-color: #d3d3d3;
+    margin:0 100px;
+    cursor: pointer;
+}
+
+.pokemon-trainer-mass-container{
+    display: none;
+    flex-wrap: wrap;
+}
+.pokemon-trainer-containers{
+    background-color: white;
+    border: 1px solid darkgrey;
+    padding: 5%;
+    margin:2%;
+    flex:1;
+}
+
+
+.trainer-individual-move-container{
+    margin:1%
+}
+
+.trainer{
+    background-color: #F8F7FF;
+    margin:5%;
+    padding:2%;
+    border: 1px solid darkgrey;
+}
 
 
 
@@ -578,9 +631,7 @@ tbody{
         width: 4.4em;
     }
 
-    .type-gymleader-master-container{
-        justify-content: center;
-    }
+ 
   }
 
 @media only screen and (min-width: 1500px) {

@@ -87,6 +87,16 @@ def eggGroupByName(name = None):
     return render_template('egg.html', number_of_mons = len(groupList) ,egg = name, groupList = groupList, pokemon = data, data = data)
 
 
+@app.route('/trainer/<name>')
+def trainerByName(name = None):
+
+    for i in gymLeadersData:
+        if i == name:
+            out = gymLeadersData[i]
+
+    return render_template('trainer.html', trainer = out, move = movesData, pokemon = data, data = data)
+
+
 @app.route('/')
 def index():
     batch = loadRandomPokemonBatch()

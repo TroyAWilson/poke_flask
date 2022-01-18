@@ -37,11 +37,13 @@ results = soup.find(id="ResultsContainer")
 brock_res = brock_soup.find_all("table", class_="expandable")
 
 leaders_list = [
-    'brock', 'misty', 'lt._Surge', 'erika', 'koga', 'sabrina', 'blaine', 'giovanni', #Gen1
+    'brock', 'misty', 'lt._Surge', 'erika', 'koga', 'sabrina', 'blaine', 'giovanni', #gen1
     'falkner','bugsy', 'whitney', 'morty', 'chuck', 'jasmine', 'pryce', 'clair', #gen2
     'roxanne', 'brawly', 'wattson', 'flannery', 'norman', 'winona', 'Tate_and_Liza', 'wallace', #gen3
     'roark', 'gardenia', 'maylene', 'Crasher_Wake', 'fantina', 'byron', 'candice', 'volkner', #gen4
-
+    'chili', 'cilan', 'cress', 'lenora', 'burgh', 'elesa', 'clay', 'skyla', 'brycen', 'drayden', 'iris', #gen5
+    'viola', 'grant', 'korrina', 'ramos', 'clemont', 'valerie', 'olympia', 'wulfric', #gen6
+    'milo', 'nessa', 'kabu', 'bea', 'allister', 'opal', 'gordie', 'melony', 'piers', 'raihan' #gen8
     ]
 versions = [
             'red', 'blue', 'green', 'yellow',
@@ -194,6 +196,126 @@ leaders = {
         'primary-typing':'electric',
         'versions':[]
     },
+    #Gen5
+    'chili':{
+        'primary-typing':'fire',
+        'versions':[]
+    },
+    'cilan':{
+        'primary-typing':'grass',
+        'versions':[]
+    },
+    'cress':{
+        'primary-typing':'water',
+        'versions':[]
+    },
+    'lenora':{
+        'primary-typing':'normal',
+        'versions':[]
+    },
+    'burgh':{
+        'primary-typing':'bug',
+        'versions':[]
+    },
+    'elesa':{
+        'primary-typing':'electric',
+        'versions':[]
+    },
+    'clay':{
+        'primary-typing':'ground',
+        'versions':[]
+    },
+    'skyla':{
+        'primary-typing':'flying',
+        'versions':[]
+    },
+    'brycen':{
+        'primary-typing':'ice',
+        'versions':[]
+    },
+    'drayden':{
+        'primary-typing':'dragon',
+        'versions':[]
+    },
+    'iris':{ #there's an issue with Drayden displaying and not Iris
+        'primary-typing':'dragon',
+        'versions':[]
+    },
+    #Gen6
+    'viola':{ 
+        'primary-typing':'bug',
+        'versions':[]
+    },
+    'grant':{ 
+        'primary-typing':'rock',
+        'versions':[]
+    },
+    'korrina':{ 
+        'primary-typing':'fighting',
+        'versions':[]
+    },
+    'ramos':{ 
+        'primary-typing':'grass',
+        'versions':[]
+    },
+    'clemont':{ 
+        'primary-typing':'electric',
+        'versions':[]
+    },
+    'valerie':{ 
+        'primary-typing':'fairy',
+        'versions':[]
+    },
+    'olympia':{ 
+        'primary-typing':'psychic',
+        'versions':[]
+    },
+    'wulfric':{ 
+        'primary-typing':'ice',
+        'versions':[]
+    },
+    # no Gen7 leaders
+    #Gen8
+    'milo':{ 
+        'primary-typing':'grass',
+        'versions':[]
+    },
+    'nessa':{ 
+        'primary-typing':'water',
+        'versions':[]
+    },
+    'kabu':{ 
+        'primary-typing':'fire',
+        'versions':[]
+    },
+    'bea':{ 
+        'primary-typing':'fighting',
+        'versions':[]
+    },
+    'allister':{ 
+        'primary-typing':'ghost',
+        'versions':[]
+    },
+    'opal':{ 
+        'primary-typing':'fairy',
+        'versions':[]
+    },
+    'gordie':{ 
+        'primary-typing':'rock',
+        'versions':[]
+    },
+    'melony':{ 
+        'primary-typing':'ice',
+        'versions':[]
+    },
+    'piers':{ 
+        'primary-typing':'dark',
+        'versions':[]
+    },
+    'raihan':{ 
+        'primary-typing':'dragon',
+        'versions':[]
+    },
 }
 
 
@@ -230,8 +352,8 @@ for leader in leaders_list:
     #location name
         s = i.find_all("span")
         for j in s:
-            if "Gym" in j.text:
-                if j.text.endswith("Gym"):
+            if "Gym" in j.text or "Stadium" in j.text:
+                if j.text.endswith("Gym") or j.text.endswith("Stadium"):
                     version['location'] = format(j.text)
 
     #names of the versions              
@@ -307,6 +429,7 @@ for leader in leaders_list:
         for count in range(len(pokemon_names)):
             pokemon = {
                 'name': format(pokemon_names[count]),
+                # 'id': None,
                 'level': None,
                 'held_item': None,
                 'ability': None,
@@ -325,7 +448,16 @@ for leader in leaders_list:
             if len(pokemon_held_items) == len(pokemon_names):
                 pokemon['held_item'] = format(pokemon_held_items[count])
 
+            # pokemonApiInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon["name"]}')
+            # if not pokemonApiInfo.ok:
+            #     continue
+            # else:
+            #     pokemonApiInfo = pokemonApiInfo.json()
+            #     pokemon['id'] = pokemonApiInfo['id']
+            
             version['pokemon-team'].append(pokemon)
+
+            print(version['pokemon-team'])
 
         if version['version-name']:
             if version['location'] != None:
@@ -340,7 +472,7 @@ for leader in leaders_list:
                     leaders[version['leader-name']]['versions'].append(version)
 
 
-for key in leaders:
-    print(key,leaders[key])
+# for key in leaders:
+#     print(key,leaders[key])
 
 with open('gymLeaders.json', 'w') as file: file.write(json.dumps(leaders))  
