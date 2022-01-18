@@ -1,5 +1,5 @@
 //This section here handles the open close toggle for the gym leader teams
-var trainer = document.getElementsByClassName('trainer');
+var trainer = document.getElementsByClassName('reveal-button');
 var team = document.getElementsByClassName('pokemon-trainer-mass-container');
 
 for(var i = 0; i < trainer.length; i++){
