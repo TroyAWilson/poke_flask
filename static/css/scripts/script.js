@@ -1,3 +1,21 @@
+//This section here handles the open close toggle for the gym leader teams
+var trainer = document.getElementsByClassName('trainer');
+var team = document.getElementsByClassName('pokemon-trainer-mass-container');
+
+for(var i = 0; i < trainer.length; i++){
+    handleTeamOpen(trainer[i], team[i]);
+}
+function handleTeamOpen(button,div){
+    button.addEventListener('click', function(){
+        if(div.style.display != 'none'){
+            div.style.display = 'none';
+        }
+        else{
+            div.style.display = 'inline-flex';
+        }
+    });
+}
+
 
 //test
 

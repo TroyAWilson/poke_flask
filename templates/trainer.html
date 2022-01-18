@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+    <title class='capitalize'> {{trainer['versions'][0]['leader-name'].capitalize()}} </title> 
+{% endblock %}
+
+{% block body %}
+    <h1 class='capitalize'> {{trainer['versions'][0]['leader-name'].replace('-',' ')}} </h1>
+    <p><a  href="/type/{{trainer['primary-typing']}}">{{trainer['primary-typing']}}</a> type gym leader</p>
+    
+
+    <div style='padding:5%;'>
+        {% for item in trainer['versions']%}
+            <div class="trainer">
+                <div class='trainer-info-names-container'>    
+                    <img class='trainer-image'  src="{{ url_for('static', filename='css/images/gymLeaderImages/' + item["leader-name"] + '-' + item['version-name'] + '.png') }}" alt="">                    
+                    <div>
+                        <p> Gym Leader {{item['leader-name'].replace('-',' ')}} </p>
+                        <p> {{item['location'].replace('-',' ')}} </p>
+                        <p> {{item['version-name']}} </p>
+                    </div>
+                </div>
+                
+                <div class = 'reveal-button'>
+                    <p>Show Team</p>
+                </div>
+
+                <div style='display:none;'class='pokemon-trainer-mass-container'>
+                    {% for p in item['pokemon-team']%}
+                    <div class = 'pokemon-trainer-containers'>
+                        {% for poke in pokemon %}
+                            {% if p['name'] == poke['name']%}
+                                <a href="/pokemon/{{poke['id']}}"> 
+                                    <img style="width:100px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{poke['id']}}.png">
+                                    <p>{{p['name']}}</p>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                        <p>{{p['level']}}</p>
+
+                        {% if p['ability'] != 'none' and  p['ability']  %}
+                            <p>Ability: <a href="/ability/{{p['ability']}}"> {{p['ability'].replace('-',' ')}} </a> </p>
+                        {% else %}
+                            <p>Ability: {{p['ability']}} </p>
+                        {% endif %}
+
+
+                        {% if p['held_item'] != 'none' and  p['held_item']%}
+                            <p>Held Item: <a href="/item/{{p['held_item']}}"> {{p['held_item'].replace('-',' ')}} </a> </p>
+                        {% else %}
+                            <p>Held Item: {{p['held_item']}} </p>
+                        {% endif %}
+                        
+                        <div class='trainer-pokemon-moves-container'>
+                            {% for m in p['moves'] %}
+                                {% if m in move %}
+                                    <div class = 'trainer-individual-move-container'>
+                                        <a href="/move/{{m}}">
+                                            <p>{{m}}</p>
+                                        </a>
+                                        
+                                        <a href="/type/{{move[m]['type']}}">
+                                            <p class='dark-anchor {{move[m]['type']}}-type' >{{move[m]['type']}}</p>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -73,8 +73,10 @@
     <div class = 'type-gymleader-master-container'>
         {% for item in gymLeaders %}
             <div class = 'type-gymleader-individual-container'>
-                <img src="{{ url_for('static', filename='css/images/gymLeaderImages/' + item["name"] + '-' + item['version'] + '.png') }}" alt="">                    
-                <p>{{item['name'].replace('-',' ')}}</p>
+                <a href="/trainer/{{item['name']}}">
+                    <img src="{{ url_for('static', filename='css/images/gymLeaderImages/' + item["name"] + '-' + item['version'] + '.png') }}" alt="">                    
+                    <p>{{item['name'].replace('-',' ')}}</p>
+                </a>
                 <p class='type-gymleader-individual-container-small-text'> {{item['location'].replace('-',' ')}} </p>
                 <p class='type-gymleader-individual-container-small-text'> {{item['version'].replace('-',' ')}} </p>
             </div>
