@@ -63,6 +63,8 @@
                                             <p class='dark-anchor {{move[m]['type']}}-type' >{{move[m]['type']}}</p>
                                         </a>
                                     </div>
+                                {% else %}
+                                    <p>{{m}}</p>
                                 {% endif %}
                             {% endfor %}
                         </div>

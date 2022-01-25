@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 
 def format(p):
     p = p.replace('\n','')
+    p = p.replace('.','')
+    p = p.replace("'",'')
     p = p.strip()
     p = p.replace(' ', '-')
     p = p.lower()
@@ -16,6 +18,8 @@ def format_list(l):
     n = []
     for p in l:
         p = p.replace('\n','')
+        p = p.replace('.','')
+        p = p.replace("'",'')
         p = p.strip()
         p = p.replace(' ', '-')
         p = p.lower()
@@ -73,7 +77,7 @@ leaders = {
         'primary-typing':'water',
         'versions':[]
     },
-    'lt.-surge':{
+    'lt-surge':{
         'primary-typing':'electric',
         'versions':[]
     },
@@ -397,7 +401,35 @@ for leader in leaders_list:
                 if t.endswith("move)"):
                     t = t[:-7]
                     if t != 'Struggle':
-                        pm.append(t)
+                        t = t.lower()
+                        if t == 'bubblebeam':
+                            pm.append('bubble-beam')
+                        elif t == 'ancientpower':
+                            pm.append('ancient-power')
+                        elif t == 'doubleslap':
+                            pm.append('ancient-power')
+                        elif t == 'faint attack':
+                            pm.append('feint-attack')
+                        elif t == 'dynamicpunch':
+                            pm.append('dynamic-punch')
+                        elif t == 'grasswhistle':
+                            pm.append('grass-whistle')
+                        elif t == 'selfdestruct':
+                            pm.append('self-destruct')
+                        elif t == 'dragonbreath':
+                            pm.append('dragon-breath')
+                        elif t == 'solarbeam':
+                            pm.append('solar-beam')
+                        elif t == 'sonicboom':
+                            pm.append('sonic-boom')
+                        elif t == 'thunderpunch':
+                            pm.append('thunder-punch')
+                        elif t == 'poisonpowder':
+                            pm.append('poison-powder')
+                        elif t == 'thundershock':
+                            pm.append('thunder-shock')
+                        else:
+                            pm.append(t)
         pokemon_moves.append(pm)
 
         pokemon_moves = list(filter(None,pokemon_moves)) #removes empty lists from 2d list
@@ -448,16 +480,8 @@ for leader in leaders_list:
             if len(pokemon_held_items) == len(pokemon_names):
                 pokemon['held_item'] = format(pokemon_held_items[count])
 
-            # pokemonApiInfo = requests.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon["name"]}')
-            # if not pokemonApiInfo.ok:
-            #     continue
-            # else:
-            #     pokemonApiInfo = pokemonApiInfo.json()
-            #     pokemon['id'] = pokemonApiInfo['id']
             
             version['pokemon-team'].append(pokemon)
-
-            print(version['pokemon-team'])
 
         if version['version-name']:
             if version['location'] != None:
@@ -472,7 +496,7 @@ for leader in leaders_list:
                     leaders[version['leader-name']]['versions'].append(version)
 
 
-# for key in leaders:
-#     print(key,leaders[key])
+# for i in leaders:
+#     print(leaders[i])
 
 with open('gymLeaders.json', 'w') as file: file.write(json.dumps(leaders))  
